@@ -87,7 +87,7 @@ void readll(char *argv1 ,char *argv2){
 }
 
 void register_var(char *argv1 ){
-	printf ("var%d db \"%s$\"\n",ccount,argv1);
+	printf ("var%d db \"%s\",13,10,\"$\" \n",ccount,argv1);
 	ccount++;
 }
 
@@ -100,7 +100,7 @@ void pprint(){
 
 void head(){
 	
-	printf("\n;nasm format\njmp main:");
+	printf("\norg 0x100\n;nasm format\njmp main");
 	printf("\nprint:\nmov ah,9\nint 0x21\nret\n");
 	
 }
