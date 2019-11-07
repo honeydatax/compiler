@@ -93,8 +93,14 @@ void register_var(char *argv1 ){
 
 void pprint(){
 	int n;
+	page=0;
 	for(n=0;n<ccount;n++){
 		body(n);
+		page++;
+		if (page>20){
+			page=0;
+			printf("\ncall key\n",c);
+		}
 	}
 }
 
@@ -102,6 +108,8 @@ void head(){
 	
 	printf("\norg 0x100\n;nasm format\njmp main");
 	printf("\nprint:\nmov ah,9\nint 0x21\nret\n");
+	printf("\nvarm1 db 13,10,\"press key to continue ,esc to exit\",13,10,\"$\"\n");
+	printf("\nkey:\nmov dx,varm1\ncall print\nmov ah,0\nint 0x16\ncmp al,27\njz keyesc\nret\nkeyesc:\njmp exits\nret\n");
 	
 }
 
