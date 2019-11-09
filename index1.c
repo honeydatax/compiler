@@ -7,6 +7,8 @@
 #define textsize 900000
 #define nlines 12000
 
+int lineno;
+int error;
 int page=0;
 char linec[800];
 long cursor=0;
@@ -24,13 +26,18 @@ void readll(char *argv1);
 int ccount=0;
 void msgbox();
 void head();
-void register_var(char *argv1 );
+int register_var(char *argv1 );
 void tail();
 void body(int c);
-void pprint();
+void pprint(int n);
 void addcode(char *s1);
 char *uppercase(char *s);
 void addkey(char *sss,int func);
+int findkey(char *s);
+int echos();
+void addtxtbody(char *s);
+void addtxtbodynx(char *s);
+void addtxtbodynb(int n);
 FILE *f1;
 FILE *f2;
 
@@ -50,8 +57,10 @@ int main(int argc, char *argv[]){
 		head();
 		fprintf(f2,"\nmain:\n");
 		page=0;
+		lineno=0;
 		do{
 			if (!feof(stdin)){
+				lineno++;
 				fgets(c,800,stdin);
 				dd=strstr(c,"\n");
 				if (dd!=NULL) dd[0]=0;
@@ -60,7 +69,7 @@ int main(int argc, char *argv[]){
 			c[0]=0;
 		}while(!feof(stdin));
 		tail();
-		printf("\ndone...\nopen file index.dat to see codes\n");
+		printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
 		fclose(f1);
 		fclose(f2);
 return 0;
@@ -92,20 +101,22 @@ void readll(char *argv1){
 	}while(r==0);
 	s1=uppercase(ss[0]);
 	ss[0]=s1;
-	if (strcmp(ss[0],"ECHO")==0){
-		pprint(ccount);
-		register_var(ss[1]);
-		
-	}
+	n=findkey(ss[0]);
+	error=1;
+	if (n==3) echos();
+	if (n==2) error=0;
+	//printf("**%d\n",n);
 	
 	
 }
 
 //=================================================================
 //register_var
-void register_var(char *argv1 ){
-	fprintf (f1,"var%d db \"%s\",13,10,\"$\" \n",ccount,argv1);
+int register_var(char *argv1 ){
+	int i=ccount;
+	fprintf (f1,"var%d db \"%s\",13,10,0 \n",ccount,argv1);
 	ccount++;
+	return i;
 }
 
 //=================================================================
@@ -2111,6 +2122,67 @@ void addkey(char *sss,int func){
 	subcursor++;
 	
 }
+
+//=================================================================
+//findkey
+int findkey(char *s){
+	int n;
+	int i=-1;
+	for (n=0;n<subcursor;n++){
+		if(strcmp(s,subs[n])==0){
+			i=n;
+			n=subcursor+1;
+		}
+		
+	}
+	return i;
+}
+
+//=================================================================
+//addtxtbody
+void addtxtbody(char *s){
+	fprintf(f2,"%s\n",s);
+}
+//=================================================================
+//addtxtbodynx
+void addtxtbodynx(char *s){
+	fprintf(f2,"%s",s);
+}
+//=================================================================
+//addtxtbodynb
+void addtxtbodynb(int n){
+	fprintf(f2,"%d",n);
+}
+//=================================================================
+//echos
+int echos(){
+		int vvar;
+		vvar=register_var(ss[1]);
+		addtxtbody("	mov bx,x");
+		addtxtbodynx("	mov si,var");
+		addtxtbodynb(vvar);
+		addtxtbody("");
+		addtxtbody("	call echo");
+
+		error=0;
+		return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
