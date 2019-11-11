@@ -7,12 +7,14 @@
 #define textsize 900000
 #define nlines 12000
 
+long varsart;
 int lineno;
 int error;
 int page=0;
 char linec[800];
 long cursor=0;
 int subcursor=0;
+int varcursor=0;
 char *c=linec;
 char *cc;
 char *ccc;
@@ -38,6 +40,8 @@ int echos();
 void addtxtbody(char *s);
 void addtxtbodynx(char *s);
 void addtxtbodynb(int n);
+void addvar(char *sss);
+int findvar(char *s);
 FILE *f1;
 FILE *f2;
 
@@ -2099,6 +2103,7 @@ void head(){
 		addkey ("bitmap.attr",4); //key 92
 		addkey ("declare",3); //93
 		addkey ("function",3); //94
+		varsart=cursor;
 
 }
 
@@ -2153,6 +2158,38 @@ void addtxtbodynx(char *s){
 void addtxtbodynb(int n){
 	fprintf(f2,"%d",n);
 }
+//=================================================================
+//addkey
+void addvar(char *sss){
+	int i;
+	char *ss1;
+	var[varcursor]=s+cursor;
+	strcpy(subs[varcursor],sss);
+	ss1=uppercase(var[varcursor]);
+	i=strlen(ss1)+2;
+	var[varcursor]=ss1;
+	cursor=cursor+((long) i);
+	varcursor++;
+	
+}
+
+
+//=================================================================
+//findvar
+int findvar(char *s){
+	int n;
+	int i=-1;
+	for (n=0;n<varcursor;n++){
+		if(strcmp(s,var[n])==0){
+			i=n;
+			n=varcursor+1;
+		}
+		
+	}
+	return i;
+}
+
+
 //=================================================================
 //echos
 int echos(){
