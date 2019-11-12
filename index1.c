@@ -2020,91 +2020,91 @@ void head(){
 			subcursor=0;
 			cursor=0;
 
-		addkey ("print",2);
-		addkey ("set",3);
-		addkey ("",1);
-		addkey ("echo",2);
-		addkey ("wait",2);
-		addkey ("integer",3);
-		addkey ("let",3);
-		addkey ("add",4);
-		addkey ("sub",4);
-		addkey ("exit",1);
-		addkey ("label",2);
-		addkey ("goto",2);
-		addkey ("return",1);
-		addkey ("like",4);
-		addkey ("diferent",4);
-		addkey ("big",4);
-		addkey ("less",4);
-		addkey ("rem",2);
-		addkey ("gosub",2);
-		addkey ("memfill",4);
-		addkey ("memcopy",4);
-		addkey ("string",3);
-		addkey ("strcat",3);
-		addkey ("strcopy",3);
-		addkey ("memmove",4);
-		addkey ("input",3);
-		addkey ("memback",4);
-		addkey ("memford",4);
-		addkey ("strfrom",4);
-		addkey ("for",5);
-		addkey ("next",1);
-		addkey ("pointer",3);
-		addkey ("copy",4);
-		addkey ("str",3);
-		addkey ("val",3);
-		addkey ("getnumber",2);
-		addkey ("printnumber",2);
-		addkey ("machine",2);
-		addkey ("reset",2);
-		addkey ("mul",4);
-		addkey ("div",4);
-		addkey ("move",3);
-		addkey ("alocate",3);
-		addkey ("call",6);
-		addkey ("file.creat",2);
-		addkey ("file.open",3);
-		addkey ("file.close",2);
-		addkey ("file.read",4);
-		addkey ("file.write",4);
-		addkey ("string.len",3);
-		addkey ("timer.sleep",2);
-		addkey ("timer.rnd",2);
-		addkey ("stack.push",2);
-		addkey ("mem.peek",3);
-		addkey ("mem.poke",3);
-		addkey ("bits.and",4);
-		addkey ("bits.not",3);
-		addkey ("mem.reserve",3);
-		addkey ("far.into",4);
-		addkey ("far.from",4);
-		addkey ("text",3);
-		addkey ("string.comp",4);
-		addkey ("string.lower",2);
-		addkey ("string.high",2);
-		addkey (":",2);
-		addkey ("string.findchr",4);
-		addkey (";",2);
-		addkey ("string.findstr",4);
-		addkey ("inkey",2);
-		addkey ("const",2);
-		addkey ("locate",4);
-		addkey ("screen",2);
-		addkey ("textout",4);
-		addkey ("border",2);
-		addkey ("float",3);
-		addkey ("back",2);
-		addkey ("hline",5);
-		addkey ("doevents",1);
-		addkey ("box",6);
-		addkey ("file.chain",2);
-		addkey ("file.exec",2);
-		addkey ("timer.cicle",2);
-		addkey ("memory",3);
-		addkey ("fillstep",5);
-		addkey ("color",2);
+		addkey ("print",2); //0
+		addkey ("set",3); //1
+		addkey ("",1); //2
+		addkey ("echo",2); //3
+		addkey ("wait",2); //4
+		addkey ("integer",3); //5
+		addkey ("let",3); //6
+		addkey ("add",4); //7
+		addkey ("sub",4); //8
+		addkey ("exit",1); //9
+		addkey ("label",2); //10
+		addkey ("goto",2); //11
+		addkey ("return",1); //12
+		addkey ("like",4); //13
+		addkey ("diferent",4); //14
+		addkey ("big",4); //15
+		addkey ("less",4); //16
+		addkey ("rem",2); //17
+		addkey ("gosub",2); //18
+		addkey ("memfill",4); //19
+		addkey ("memcopy",4); //20
+		addkey ("string",3); //21
+		addkey ("strcat",3); //22
+		addkey ("strcopy",3); //23
+		addkey ("memmove",4); //24
+		addkey ("input",3); //25
+		addkey ("memback",4); //26
+		addkey ("memford",4); //27
+		addkey ("strfrom",4); //28
+		addkey ("for",5); //29
+		addkey ("next",1); //30
+		addkey ("pointer",3);//31
+		addkey ("copy",4); //32
+		addkey ("str",3); //33
+		addkey ("val",3); //34
+		addkey ("getnumber",2); //35
+		addkey ("printnumber",2); //36
+		addkey ("machine",2); //37
+		addkey ("reset",2);  //38
+		addkey ("mul",4); //39
+		addkey ("div",4); //40
+		addkey ("move",3); //41
+		addkey ("alocate",3); //42
+		addkey ("call",6); //43
+		addkey ("file.creat",2); //44
+		addkey ("file.open",3); //45
+		addkey ("file.close",2); //46
+		addkey ("file.read",4);  //47
+		addkey ("file.write",4);  //48
+		addkey ("string.len",3);  //49
+		addkey ("timer.sleep",2); //50
+		addkey ("timer.rnd",2);  //51
+		addkey ("stack.push",2); //52
+		addkey ("mem.peek",3); //53
+		addkey ("mem.poke",3); //54 
+		addkey ("bits.and",4);  //55
+		addkey ("bits.not",3);  //56
+		addkey ("mem.reserve",3); //57
+		addkey ("far.into",4);  //58
+		addkey ("far.from",4);  //59
+		addkey ("text",3); //60
+		addkey ("string.comp",4); //61
+		addkey ("string.lower",2); //62
+		addkey ("string.high",2); //63
+		addkey (":",2); //64
+		addkey ("string.findchr",4); //65
+		addkey (";",2); //66
+		addkey ("string.findstr",4); //67
+		addkey ("inkey",2);  //68
+		addkey ("const",2);  //69
+		addkey ("locate",4);  //70
+		addkey ("screen",2);  //71
+		addkey ("textout",4);  //72
+		addkey ("border",2);  //73
+		addkey ("float",3);   //74
+		addkey ("back",2);    //75
+		addkey ("hline",5);   //76
+		addkey ("doevents",1);  //77
+		addkey ("box",6);   //78
+		addkey ("file.chain",2);  //79
+		addkey ("file.exec",2);   //80
+		addkey ("timer.cicle",2);  //81
+		addkey ("memory",3);   //82
+		addkey ("fillstep",5);  //83
+		addkey ("color",2);  //84
 		addkey ("vline",5); //key 85
 		addkey ("nosound",1); //key 86
 		addkey ("sound",2); //key 87
