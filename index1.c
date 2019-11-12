@@ -49,6 +49,7 @@ void addtxtbodynb(int n);
 void addvar(char *sss);
 int findvar(char *s);
 int declair(char *s);
+int iinteger(char *s);
 int function(char *s);
 FILE *f1;
 FILE *f2;
@@ -114,8 +115,9 @@ void readll(char *argv1){
 	ss[0]=s1;
 	n=findkey(ss[0]);
 	error=1;
-	if (n==3) echos();
 	if (n==2) error=0;
+	if (n==3) echos();
+	if (n==5) iinteger(ss[1]);
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
 	//printf("**%d\n",n);
@@ -2284,7 +2286,31 @@ int echos(){
 		return 0;
 }
 
+//=================================================================
+//integer
+int iinteger(char *s){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(paramets[5]==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findkey(ss1);
+		if (i==-1){
+			addkey (ss1,5);
+			i=findkey(ss1);
+		}else{
+			error=1;
+		}
+		ss2=uppercase(ss[2]);
+		l=atol(ss2);
+		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+		varnext++;
 
+	}
+	return 0;
+}
 
 
 
