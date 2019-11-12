@@ -7,6 +7,8 @@
 #define textsize 900000
 #define nlines 12000
 
+int varnextstart=0;
+int varnext=0;
 long varsart;
 int lineno;
 int error;
@@ -42,6 +44,8 @@ void addtxtbodynx(char *s);
 void addtxtbodynb(int n);
 void addvar(char *sss);
 int findvar(char *s);
+int declair(char *s);
+int function(char *s);
 FILE *f1;
 FILE *f2;
 
@@ -109,8 +113,11 @@ void readll(char *argv1){
 	error=1;
 	if (n==3) echos();
 	if (n==2) error=0;
+	if (n==93) declair(ss[1]);
+	if (n==94) function(ss[1]);
 	//printf("**%d\n",n);
-	
+
+
 	
 }
 
@@ -153,7 +160,7 @@ void tail(){
 //=================================================================
 //msgbox()
 void msgbox(){
-	printf ("\e[0;30;46m");
+	printf ("\e[0;37;40m");
 }
 
 //=================================================================
@@ -2122,7 +2129,7 @@ void addkey(char *sss,int func){
 	ss=uppercase(subs[subcursor]);
 	i=strlen(ss)+2;
 	subs[subcursor]=ss;
-	//printf("*%d,%s,%d\n",subcursor,subs[subcursor],func);
+	//printf("t%d,%s,%d\n",subcursor,subs[subcursor],func);
 	cursor=cursor+((long) i);
 	subcursor++;
 	
@@ -2164,7 +2171,7 @@ void addvar(char *sss){
 	int i;
 	char *ss1;
 	var[varcursor]=s+cursor;
-	strcpy(subs[varcursor],sss);
+	strcpy(var[varcursor],sss);
 	ss1=uppercase(var[varcursor]);
 	i=strlen(ss1)+2;
 	var[varcursor]=ss1;
@@ -2189,6 +2196,61 @@ int findvar(char *s){
 	return i;
 }
 
+//=================================================================
+//declair
+int declair(char *s){
+	char *ss1;
+	ss1=uppercase(s);
+	addkey (ss1,5);
+	error=0;
+	// debug line printf("add function:%s\n",s);
+	varsart=cursor;
+
+	return 0;
+}
+//=================================================================
+//function
+int function(char *s){
+	int i;
+	char *ss1;
+	ss1=uppercase(ss[1]);
+	i=findkey(ss1);
+	if (i==-1){
+		addkey (ss1,5);
+		i=findkey(ss1);
+	}
+	varnextstart=varnext;
+	varcursor=0;
+	cursor=varsart;
+
+	fprintf(f2,"sub%d:\n",i);
+	fprintf(f1,"varnext%d dd 0\n",varnext);
+	fprintf(f2,"	mov di,varnext%d\n",varnext);
+	fprintf(f2,"	cs\n");
+	fprintf(f2,"	mov [di],eax\n");
+	varnext++;
+	fprintf(f1,"varnext%d dd 0\n",varnext);
+	fprintf(f2,"	mov di,varnext%d\n",varnext);
+	fprintf(f2,"	cs\n");
+	fprintf(f2,"	mov [di],ebx\n");
+	varnext++;
+	fprintf(f1,"varnext%d dd 0\n",varnext);
+	fprintf(f2,"	mov di,varnext%d\n",varnext);
+	fprintf(f2,"	cs\n");
+	fprintf(f2,"	mov [di],ecx\n");
+	varnext++;
+	fprintf(f1,"varnext%d dd 0\n",varnext);
+	fprintf(f2,"	mov di,varnext%d\n",varnext);
+	fprintf(f2,"	cs\n");
+	fprintf(f2,"	mov [di],edx\n");
+	varnext++;
+	addvar("ARGV0");
+	addvar("ARGV1");
+	addvar("ARGV2");
+	addvar("ARGV3");
+
+
+}
 
 //=================================================================
 //echos
@@ -2196,6 +2258,9 @@ int echos(){
 		int vvar;
 		vvar=register_var(ss[1]);
 		addtxtbody("	mov bx,x");
+		addtxtbody("	mov ax,0");	
+		addtxtbody("	cs");	
+		addtxtbody("	mov [bx],ax");	
 		addtxtbodynx("	mov si,var");
 		addtxtbodynb(vvar);
 		addtxtbody("");
