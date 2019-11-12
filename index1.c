@@ -7,6 +7,9 @@
 #define textsize 900000
 #define nlines 12000
 
+int n=0;
+int parametscount=0;
+int paramets[5000];
 int varnextstart=0;
 int varnext=0;
 long varsart;
@@ -23,6 +26,7 @@ char *ccc;
 char *tabs[nlines];
 char *var[5000];
 char *subs[5000];
+int count;
 int tindex=0;
 char s[textsize];
 char *ss[500];
@@ -88,9 +92,8 @@ return 0;
 void readll(char *argv1){
 	char *s1;
 	char *s2;
-	int n;
 	int r;
-	int count=0;
+	count=0;
 	r=0;
 	ss[count]=argv1;
 	count++;
@@ -125,7 +128,9 @@ void readll(char *argv1){
 //register_var
 int register_var(char *argv1 ){
 	int i=ccount;
-	fprintf (f1,"var%d db \"%s\",13,10,0 \n",ccount,argv1);
+	int nn=strlen(argv1);
+	nn=nn & 255;
+	fprintf (f1,"var%d db  %d,\"%s\",13,10,0 \n",ccount,nn,argv1);
 	ccount++;
 	return i;
 }
@@ -2108,8 +2113,8 @@ void head(){
 		addkey ("bitmap.creat",4); //key 90
 		addkey ("bitmap.back",3); //key 91
 		addkey ("bitmap.attr",4); //key 92
-		addkey ("declare",3); //93
-		addkey ("function",3); //94
+		addkey ("declare",2); //93
+		addkey ("function",2); //94
 		varsart=cursor;
 
 }
@@ -2130,6 +2135,7 @@ void addkey(char *sss,int func){
 	i=strlen(ss)+2;
 	subs[subcursor]=ss;
 	//printf("t%d,%s,%d\n",subcursor,subs[subcursor],func);
+	paramets[subcursor]=func;
 	cursor=cursor+((long) i);
 	subcursor++;
 	
@@ -2200,55 +2206,61 @@ int findvar(char *s){
 //declair
 int declair(char *s){
 	char *ss1;
-	ss1=uppercase(s);
-	addkey (ss1,5);
-	error=0;
-	// debug line printf("add function:%s\n",s);
-	varsart=cursor;
-
-	return 0;
+	if(paramets[93]==count){
+		ss1=uppercase(s);
+		addkey (ss1,5);
+		error=0;
+		// debug line printf("add function:%s\n",s);
+		varsart=cursor;
+		error=0;
+		return 0;
+	}
 }
 //=================================================================
 //function
 int function(char *s){
 	int i;
 	char *ss1;
-	ss1=uppercase(ss[1]);
-	i=findkey(ss1);
-	if (i==-1){
-		addkey (ss1,5);
+	if(paramets[94]==count){
+		ss1=uppercase(ss[1]);
 		i=findkey(ss1);
+		if (i==-1){
+			addkey (ss1,5);
+			i=findkey(ss1);
+		}
+		varnextstart=varnext;
+		varcursor=0;
+		cursor=varsart;
+	
+		fprintf(f2,"; sub, %s:\n",ss[1]);
+		fprintf(f1,"; sub, %s:\n",ss[1]);
+		fprintf(f2,"sub%d:\n",i);
+		fprintf(f1,"varnext%d dd 0\n",varnext);
+		fprintf(f2,"	mov di,varnext%d\n",varnext);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],eax\n");
+		varnext++;
+		fprintf(f1,"varnext%d dd 0\n",varnext);
+		fprintf(f2,"	mov di,varnext%d\n",varnext);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],ebx\n");
+		varnext++;
+		fprintf(f1,"varnext%d dd 0\n",varnext);
+		fprintf(f2,"	mov di,varnext%d\n",varnext);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],ecx\n");
+		varnext++;
+		fprintf(f1,"varnext%d dd 0\n",varnext);
+		fprintf(f2,"	mov di,varnext%d\n",varnext);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],edx\n");
+		varnext++;
+		addvar("ARGV0");
+		addvar("ARGV1");
+		addvar("ARGV2");
+		addvar("ARGV3");
+		error=0;
 	}
-	varnextstart=varnext;
-	varcursor=0;
-	cursor=varsart;
-
-	fprintf(f2,"sub%d:\n",i);
-	fprintf(f1,"varnext%d dd 0\n",varnext);
-	fprintf(f2,"	mov di,varnext%d\n",varnext);
-	fprintf(f2,"	cs\n");
-	fprintf(f2,"	mov [di],eax\n");
-	varnext++;
-	fprintf(f1,"varnext%d dd 0\n",varnext);
-	fprintf(f2,"	mov di,varnext%d\n",varnext);
-	fprintf(f2,"	cs\n");
-	fprintf(f2,"	mov [di],ebx\n");
-	varnext++;
-	fprintf(f1,"varnext%d dd 0\n",varnext);
-	fprintf(f2,"	mov di,varnext%d\n",varnext);
-	fprintf(f2,"	cs\n");
-	fprintf(f2,"	mov [di],ecx\n");
-	varnext++;
-	fprintf(f1,"varnext%d dd 0\n",varnext);
-	fprintf(f2,"	mov di,varnext%d\n",varnext);
-	fprintf(f2,"	cs\n");
-	fprintf(f2,"	mov [di],edx\n");
-	varnext++;
-	addvar("ARGV0");
-	addvar("ARGV1");
-	addvar("ARGV2");
-	addvar("ARGV3");
-
 
 }
 
@@ -2256,17 +2268,19 @@ int function(char *s){
 //echos
 int echos(){
 		int vvar;
-		vvar=register_var(ss[1]);
-		addtxtbody("	mov bx,x");
-		addtxtbody("	mov ax,0");	
-		addtxtbody("	cs");	
-		addtxtbody("	mov [bx],ax");	
-		addtxtbodynx("	mov si,var");
-		addtxtbodynb(vvar);
-		addtxtbody("");
-		addtxtbody("	call echo");
+		if(paramets[3]==count){
+			vvar=register_var(ss[1]);
+			addtxtbody("	mov bx,x");
+			addtxtbody("	mov ax,0");	
+			addtxtbody("	cs");	
+			addtxtbody("	mov [bx],ax");	
+			addtxtbodynx("	mov si,var");
+			addtxtbodynb(vvar);
+			addtxtbody("");
+			addtxtbody("	call echo");
 
-		error=0;
+			error=0;
+		}
 		return 0;
 }
 
