@@ -56,6 +56,7 @@ int iinteger(char *s);
 int function(char *s);
 int callfunction(char *s);
 int locate();
+int color();
 FILE *f1;
 FILE *f2;
 
@@ -131,6 +132,7 @@ void readll(char *argv1){
 	if (n==3) echos();
 	if (n==5) iinteger(ss[1]);
 	if (n==70) locate();
+	if (n==84) color();
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
 	if (n>=substart) callfunction(ss[0]);
@@ -2450,6 +2452,35 @@ int locate(){
 }
 
 
+int color(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[84]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,color");
+									addtxtbody("	mov [si],al");
+
+
+
+	}
+
+
+	return 0;
+}
 
 
 
