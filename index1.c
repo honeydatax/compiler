@@ -2376,10 +2376,18 @@ int callfunction(char *s){
 			printf("error var4\n");
 			error=1;
 		}
-		fprintf(f2,"	mov ax,varnext%d\n",i1+varnextstart);
-		fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
-		fprintf(f2,"	mov cx,varnext%d\n",i3+varnextstart);
-		fprintf(f2,"	mov dx,varnext%d\n",i4+varnextstart);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ecx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov edx,[si]\n");
 		fprintf(f2,"	call sub%d\n",i);
 
 		
