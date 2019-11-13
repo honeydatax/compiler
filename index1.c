@@ -59,6 +59,7 @@ int locate();
 int color();
 int add();
 int sub();
+int consts();
 FILE *f1;
 FILE *f2;
 
@@ -135,6 +136,7 @@ void readll(char *argv1){
 	if (n==5) iinteger(ss[1]);
 	if (n==7) add();
 	if (n==8) sub();
+	if (n==69) consts();
 	if (n==70) locate();
 	if (n==84) color();
 	if (n==93) declair(ss[1]);
@@ -2330,11 +2332,11 @@ int iinteger(char *s){
 		l=atol(ss2);
 		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
 		varnext++;
-		error=0;
+
 	}
 	return 0;
 }
-
+//=================================================================
 
 int callfunction(char *s){
 	int i;
@@ -2398,7 +2400,7 @@ int callfunction(char *s){
 	}
 	
 }
-
+//=================================================================
 
 int locate(){
 	int i;
@@ -2455,6 +2457,7 @@ int locate(){
 	return 0;
 }
 
+//=================================================================
 
 int color(){
 	int i;
@@ -2485,7 +2488,7 @@ int color(){
 
 	return 0;
 }
-
+//=================================================================
 
 int add(){
 	int i;
@@ -2535,7 +2538,7 @@ int add(){
 
 
 
-
+//=================================================================
 
 
 int sub(){
@@ -2584,3 +2587,31 @@ int sub(){
 		return 0;
 }
 
+//=================================================================
+
+int consts(){
+	int i;
+	int n;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(paramets[69]<=count){
+		error=0;
+		for (n=0;n<count-1;n++){
+			ss1=uppercase(ss[n+1]);
+			i=findvar(ss1);
+			if (i==-1){
+				addvar (ss1);
+				i=findvar(ss1);
+			}else{
+				printf("var:%s\n",ss1);
+				error=1;
+			}
+		
+			l=atol(ss1);
+			fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+			varnext++;
+		}
+	}
+	return 0;
+}
