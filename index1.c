@@ -88,10 +88,14 @@ int main(int argc, char *argv[]){
 			c[0]=0;
 		}while(!feof(stdin));
 		tail();
-		if (eerror==0)printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
 		fclose(f1);
 		fclose(f2);
-		if (eerror==1) printf("fail to compile error\n");
+		if (eerror==1) {
+			printf("fail to compile error\n");
+		}else{
+			system("nasm -o out.com index.dat");
+			printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
+		}
 return 0;
 }
 
