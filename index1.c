@@ -58,6 +58,7 @@ int callfunction(char *s);
 int locate();
 int color();
 int add();
+int sub();
 FILE *f1;
 FILE *f2;
 
@@ -133,6 +134,7 @@ void readll(char *argv1){
 	if (n==3) echos();
 	if (n==5) iinteger(ss[1]);
 	if (n==7) add();
+	if (n==8) sub();
 	if (n==70) locate();
 	if (n==84) color();
 	if (n==93) declair(ss[1]);
@@ -2535,4 +2537,50 @@ int add(){
 
 
 
+
+int sub(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[8]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	sub eax,ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+		}
+		return 0;
+}
 
