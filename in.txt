@@ -1,3 +1,9 @@
-hello world.!
-hello there
-say hello!
+declare,main
+declare,hello
+function,main
+	integer,abc,0
+	hello,abc,abc,abc,abc
+function,hello
+	 echo	 ,hello world.!
+	 echo	 ,hello there.!
+	 echo	 ,say hi.!
