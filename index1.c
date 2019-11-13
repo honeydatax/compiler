@@ -55,6 +55,7 @@ int declair(char *s);
 int iinteger(char *s);
 int function(char *s);
 int callfunction(char *s);
+int locate();
 FILE *f1;
 FILE *f2;
 
@@ -129,6 +130,7 @@ void readll(char *argv1){
 	if (n==2) error=0;
 	if (n==3) echos();
 	if (n==5) iinteger(ss[1]);
+	if (n==70) locate();
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
 	if (n>=substart) callfunction(ss[0]);
@@ -2291,10 +2293,6 @@ int echos(){
 		int vvar;
 		if(paramets[3]==count){
 			vvar=register_var(ss[1]);
-			addtxtbody("	mov bx,x");
-			addtxtbody("	mov ax,0");	
-			addtxtbody("	cs");	
-			addtxtbody("	mov [bx],ax");	
 			addtxtbodynx("	mov si,var");
 			addtxtbodynb(vvar);
 			addtxtbody("");
@@ -2396,7 +2394,60 @@ int callfunction(char *s){
 }
 
 
+int locate(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[70]==count){
 
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+									addtxtbody("	mov bx,x");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov [bx],al");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	inc bx");
+									addtxtbody("	mov [bx],al");
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov dl,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov dh,[si]");
+									addtxtbody("	mov ah,2");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov bh,[si]");
+									addtxtbody("	int 0x10");
+
+	}
+	return 0;
+}
 
 
 
