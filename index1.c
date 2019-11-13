@@ -7,6 +7,8 @@
 #define textsize 900000
 #define nlines 12000
 
+int mainsub=0;
+int substart=0;
 int n=0;
 int parametscount=0;
 int paramets[5000];
@@ -52,6 +54,7 @@ int findvar(char *s);
 int declair(char *s);
 int iinteger(char *s);
 int function(char *s);
+int callfunction(char *s);
 FILE *f1;
 FILE *f2;
 
@@ -73,6 +76,7 @@ int main(int argc, char *argv[]){
 		page=0;
 		lineno=0;
 		eerror=0;
+		mainsub=0;
 		do{
 			if (!feof(stdin)){
 				lineno++;
@@ -123,6 +127,7 @@ void readll(char *argv1){
 	if (n==5) iinteger(ss[1]);
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
+	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
 		printf("line error:%d\n",lineno);
@@ -166,7 +171,7 @@ void body(int c){
 void tail(){
 	fprintf(f2,"\nret\n");
 	fprintf(f2,"\nret\n");
-	fprintf(f1,"endf db 0 ");
+	fprintf(f1,"endf db 0\n");
 	
 }
 
@@ -2124,7 +2129,7 @@ void head(){
 		addkey ("declare",2); //93
 		addkey ("function",2); //94
 		varsart=cursor;
-
+		substart=subcursor;
 }
 
 //=================================================================
@@ -2239,7 +2244,11 @@ int function(char *s){
 		varnextstart=varnext;
 		varcursor=0;
 		cursor=varsart;
-	
+		if (mainsub==0){
+			mainsub=1;
+		}else{
+			fprintf(f2,"ret\n");
+		}	
 		fprintf(f2,"; sub, %s:\n",ss[1]);
 		fprintf(f1,"; sub, %s:\n",ss[1]);
 		fprintf(f2,"sub%d:\n",i);
@@ -2302,10 +2311,10 @@ int iinteger(char *s){
 	if(paramets[5]==count){
 		error=0;
 		ss1=uppercase(ss[1]);
-		i=findkey(ss1);
+		i=findvar(ss1);
 		if (i==-1){
-			addkey (ss1,5);
-			i=findkey(ss1);
+			addvar (ss1);
+			i=findvar(ss1);
 		}else{
 			error=1;
 		}
@@ -2319,7 +2328,60 @@ int iinteger(char *s){
 }
 
 
+int callfunction(char *s){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(5==count){
 
+		error=0;
+		ss1=uppercase(ss[0]);
+		i=findkey(ss1);
+		if (i==-1){
+			printf("error key\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+		fprintf(f2,"	mov ax,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	mov cx,varnext%d\n",i3+varnextstart);
+		fprintf(f2,"	mov dx,varnext%d\n",i4+varnextstart);
+		fprintf(f2,"	call sub%d\n",i);
+
+		
+	}
+	
+}
 
 
 
