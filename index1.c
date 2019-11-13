@@ -60,6 +60,7 @@ int color();
 int add();
 int sub();
 int consts();
+int printnumber();
 FILE *f1;
 FILE *f2;
 
@@ -136,6 +137,7 @@ void readll(char *argv1){
 	if (n==5) iinteger(ss[1]);
 	if (n==7) add();
 	if (n==8) sub();
+	if (n==36) printnumber();
 	if (n==69) consts();
 	if (n==70) locate();
 	if (n==84) color();
@@ -2615,3 +2617,41 @@ int consts(){
 	}
 	return 0;
 }
+
+int printnumber(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[36]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+									addtxtbody("	mov si,L17");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov edi,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	call STR32");
+									addtxtbody("	mov si,L17");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	call len32");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	call PRINT32");
+	}
+	return 0;
+}
+
+
+
