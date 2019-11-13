@@ -15,6 +15,7 @@ int varnext=0;
 long varsart;
 int lineno;
 int error;
+int eerror;
 int page=0;
 char linec[800];
 long cursor=0;
@@ -71,6 +72,7 @@ int main(int argc, char *argv[]){
 		fprintf(f2,"\nmain:\n");
 		page=0;
 		lineno=0;
+		eerror=0;
 		do{
 			if (!feof(stdin)){
 				lineno++;
@@ -82,9 +84,10 @@ int main(int argc, char *argv[]){
 			c[0]=0;
 		}while(!feof(stdin));
 		tail();
-		printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
+		if (eerror==0)printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
 		fclose(f1);
 		fclose(f2);
+		if (eerror==1) printf("fail to compile error\n");
 return 0;
 }
 
@@ -121,7 +124,10 @@ void readll(char *argv1){
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
 	//printf("**%d\n",n);
-
+	if (error==1){
+		printf("line error:%d\n",lineno);
+		eerror=1;
+	}
 
 	
 }
@@ -2307,7 +2313,7 @@ int iinteger(char *s){
 		l=atol(ss2);
 		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
 		varnext++;
-
+		error=0;
 	}
 	return 0;
 }
