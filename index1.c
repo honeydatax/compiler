@@ -64,6 +64,7 @@ int printnumber();
 int pointers();
 int pointersto();
 int pointersfrom();
+int ford();
 FILE *f1;
 FILE *f2;
 
@@ -140,6 +141,7 @@ void readll(char *argv1){
 	if (n==5) iinteger(ss[1]);
 	if (n==7) add();
 	if (n==8) sub();
+	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
 	if (n==69) consts();
@@ -2084,7 +2086,7 @@ void head(){
 		addkey ("memback",4); //26
 		addkey ("memford",4); //27
 		addkey ("strfrom",4); //28
-		addkey ("for",5); //29
+		addkey ("for",10); //29
 		addkey ("next",1); //30
 		addkey ("pointer",3);//31
 		addkey ("copy",4); //32
@@ -2707,6 +2709,8 @@ int pointers(){
 		return 0;
 }
 
+//=================================================================
+
 int pointersto(){
 	int i;
 	int i1;
@@ -2752,7 +2756,7 @@ int pointersto(){
 		return 0;
 }
 
-
+//=================================================================
 
 int pointersfrom(){
 	int i;
@@ -2799,8 +2803,138 @@ int pointersfrom(){
 		return 0;
 }
 
+//=================================================================
+
+int ford(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(10==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
 
 
+		ss1=uppercase(ss[5]);
+		i5=findkey(ss1);
+		if (i5<substart){
+			printf("error key\n");
+			error=1;
+		}
+
+
+
+		ss1=uppercase(ss[6]);
+		i6=findvar(ss1);
+		if (i6==-1){
+			printf("error var6\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[7]);
+		i7=findvar(ss1);
+		if (i7==-1){
+			printf("error var7\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[8]);
+		i8=findvar(ss1);
+		if (i8==-1){
+			printf("error var9\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[9]);
+		i9=findvar(ss1);
+		if (i9==-1){
+			printf("error var9\n");
+			error=1;
+		}
+
+
+
+
+
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],eax\n");
+		fprintf(f2,"	lineno%d:\n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i6+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i7+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i8+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ecx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i9+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov edx,[si]\n");
+		fprintf(f2,"	call sub%d\n",i5);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	clc\n");
+		fprintf(f2,"	add eax,ebx\n");
+		fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov [di],eax\n");
+		fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp eax,ebx\n");
+		fprintf(f2,"	jle lineno%d \n",lineno);
+		
+	}
+	
+}
+
+
+
+//=================================================================
 
 
 
