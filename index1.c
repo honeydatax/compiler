@@ -63,6 +63,7 @@ int consts();
 int printnumber();
 int pointers();
 int pointersto();
+int pointersfrom();
 FILE *f1;
 FILE *f2;
 
@@ -147,6 +148,7 @@ void readll(char *argv1){
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
 	if (n==95) pointersto();
+	if (n==96) pointersfrom();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2149,6 +2151,7 @@ void head(){
 		addkey ("declare",2); //93
 		addkey ("function",2); //94
 		addkey ("pointer.to",3); //95
+		addkey ("pointer.from",3); //96
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -2749,6 +2752,52 @@ int pointersto(){
 		return 0;
 }
 
+
+
+int pointersfrom(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[96]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+
+
+										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+										fprintf(f2,"	cs\n");
+										fprintf(f2,"	mov eax,[si]\n");
+										addtxtbody("	mov esi,eax");
+										addtxtbody("	mov ax,0");
+										addtxtbody("	mov ds,ax");
+										addtxtbody("	ds");
+										addtxtbody("	mov edx,[esi]");
+										addtxtbody("	mov ax,cs");
+										addtxtbody("	mov ds,ax");
+										fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+										addtxtbody("	cs");
+										addtxtbody("	mov [di],edx");
+		}
+
+		return 0;
+}
 
 
 
