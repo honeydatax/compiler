@@ -61,6 +61,7 @@ int add();
 int sub();
 int consts();
 int printnumber();
+int pointers();
 FILE *f1;
 FILE *f2;
 
@@ -137,6 +138,7 @@ void readll(char *argv1){
 	if (n==5) iinteger(ss[1]);
 	if (n==7) add();
 	if (n==8) sub();
+	if (n==31) pointers();
 	if (n==36) printnumber();
 	if (n==69) consts();
 	if (n==70) locate();
@@ -2618,6 +2620,9 @@ int consts(){
 	return 0;
 }
 
+//=================================================================
+
+
 int printnumber(){
 	int i;
 	int i1;
@@ -2652,6 +2657,66 @@ int printnumber(){
 	}
 	return 0;
 }
+
+//=================================================================
+
+
+int pointers(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[31]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+
+
+										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+										addtxtbody("	mov ax,cs");
+										addtxtbody("	call MEM32");
+										fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+										addtxtbody("	cs");
+										addtxtbody("	mov [di],eax");
+
+
+		}
+
+		return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
