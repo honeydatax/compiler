@@ -62,6 +62,7 @@ int sub();
 int consts();
 int printnumber();
 int pointers();
+int pointersto();
 FILE *f1;
 FILE *f2;
 
@@ -145,6 +146,7 @@ void readll(char *argv1){
 	if (n==84) color();
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
+	if (n==95) pointersto();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2146,6 +2148,7 @@ void head(){
 		addkey ("bitmap.attr",4); //key 92
 		addkey ("declare",2); //93
 		addkey ("function",2); //94
+		addkey ("pointer.to",3); //95
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -2701,6 +2704,50 @@ int pointers(){
 		return 0;
 }
 
+int pointersto(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[95]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+
+
+										fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+										fprintf(f2,"	cs\n");
+										fprintf(f2,"	mov eax,[si]\n");
+										addtxtbody("	mov edi,eax\n");
+										addtxtbody("	mov ax,0");
+										addtxtbody("	mov ds,ax");
+										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+										addtxtbody("	cs");
+										addtxtbody("	mov eax,[si]");
+										addtxtbody("	ds");
+										addtxtbody("	mov [edi],eax");
+										addtxtbody("	mov ax,cs");
+										addtxtbody("	mov ds,ax");
+		}
+
+		return 0;
+}
 
 
 
