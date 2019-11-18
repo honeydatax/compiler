@@ -73,6 +73,7 @@ int big();
 int less();
 int inside();
 int outside();
+int rem();
 FILE *f1;
 FILE *f2;
 
@@ -156,6 +157,7 @@ void readll(char *argv1){
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
+	if (n==66 || n==17) rem();
 	if (n==69) consts();
 	if (n==70) locate();
 	if (n==84) color();
@@ -3787,7 +3789,12 @@ int outside(){
 
 //=================================================================
 
-
+int rem (){
+	fprintf(f2,"; , %s\n",ss[1]);
+	fprintf(f1,"; , %s\n",ss[1]);
+	error=0;
+	return 0;
+}
 
 
 
