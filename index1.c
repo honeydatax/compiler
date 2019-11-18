@@ -70,6 +70,7 @@ int dodo();
 int like();
 int diferent();
 int big();
+int less();
 FILE *f1;
 FILE *f2;
 
@@ -149,6 +150,7 @@ void readll(char *argv1){
 	if (n==13) like();
 	if (n==14) diferent();
 	if (n==15) big();
+	if (n==16) less();
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
@@ -3432,6 +3434,106 @@ int big(){
 		fprintf(f2,"	mov ebx,[si]\n");
 		fprintf(f2,"	cmp eax,ebx\n");
 		fprintf(f2,"	jle linenos%d \n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i5+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i6+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ecx,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i7+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov edx,[si]\n");
+		fprintf(f2,"	call sub%d\n",i3);
+		fprintf(f2,"	linenos%d:\n",lineno);
+	}
+	
+}
+
+
+
+//=================================================================
+
+int less(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(8==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[5]);
+		i5=findvar(ss1);
+		if (i5==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+
+
+		ss1=uppercase(ss[3]);
+		i3=findkey(ss1);
+		if (i3<substart){
+			printf("error key\n");
+			error=1;
+		}
+
+
+
+		ss1=uppercase(ss[6]);
+		i6=findvar(ss1);
+		if (i6==-1){
+			printf("error var6\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[7]);
+		i7=findvar(ss1);
+		if (i7==-1){
+			printf("error var7\n");
+			error=1;
+		}
+
+
+		fprintf(f2,"	lineno%d:\n",lineno);
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov eax,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ebx,[si]\n");
+		fprintf(f2,"	cmp eax,ebx\n");
+		fprintf(f2,"	jae linenos%d \n",lineno);
 		fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
 		fprintf(f2,"	cs\n");
 		fprintf(f2,"	mov eax,[si]\n");
