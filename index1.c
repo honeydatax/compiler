@@ -74,6 +74,8 @@ int less();
 int inside();
 int outside();
 int rem();
+int sstring();
+int memory();
 FILE *f1;
 FILE *f2;
 
@@ -154,12 +156,14 @@ void readll(char *argv1){
 	if (n==14) diferent();
 	if (n==15) big();
 	if (n==16) less();
+	if (n==21) sstring();
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
 	if (n==66 || n==17) rem();
 	if (n==69) consts();
 	if (n==70) locate();
+	if (n==82) memory();
 	if (n==84) color();
 	if (n==93) declair(ss[1]);
 	if (n==94) function(ss[1]);
@@ -3797,7 +3801,62 @@ int rem (){
 }
 
 
+//=================================================================
+//string
+int sstring(){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(paramets[21]==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+		ss2=uppercase(ss[2]);
+		l=atol(ss2);
+		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+								fprintf(f2,"	mov ecx,%lu\n",l);
+								fprintf(f2,"	call RESERVES\n");
+								fprintf(f2,"	mov si,varnext%d\n",varnext);
+								fprintf(f2,"	cs\n");
+								fprintf(f2,"	mov [si],eax\n");
+		varnext++;
+	}
+	return 0;
+}
+//=================================================================
 
+//=================================================================
+//memory
+int memory(){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(paramets[82]==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+		ss2=uppercase(ss[2]);
+		l=atol(ss2);
+		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+		varnext++;
+	}
+	return 0;
+}
+//=================================================================
 
 
 
