@@ -76,6 +76,7 @@ int outside();
 int rem();
 int sstring();
 int memory();
+int fillmmem();
 FILE *f1;
 FILE *f2;
 
@@ -156,6 +157,7 @@ void readll(char *argv1){
 	if (n==14) diferent();
 	if (n==15) big();
 	if (n==16) less();
+	if (n==19) fillmmem();
 	if (n==21) sstring();
 	if (n==29) ford();
 	if (n==31) pointers();
@@ -3858,6 +3860,76 @@ int memory(){
 }
 //=================================================================
 
+//=================================================================
+
+
+int fillmmem(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+
+
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov edi,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov al,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ecx,[si]\n");
+
+
+
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	call memfill");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+
+
+
+	}
+	return 0;	
+}
 
 
 
