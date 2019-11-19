@@ -1,0 +1,71 @@
+declare,startpoint
+declare,loop1
+declare,main
+declare,lost
+declare,win
+declare,bb
+declare,bl
+declare,ll
+function,startpoint
+	const,0,1,2,30
+	main,0,0,0,0
+function,ll
+	echo,you lost
+function,bl
+	const,0,1,2,30
+	locate,30,argv1,0
+	echo,munber is to small
+function,bb
+	const,0,1,2,30
+	locate,30,argv1,0
+	echo,munber is to big
+function,lost
+	const,0,1,2,30
+	integer,l,0
+	pointer.from,l,argv0
+	locate,30,argv1,0
+	like,l,0,ll,0,0,0,0
+	pointer.to,argv0,1
+function,win
+	const,0,1,2,30
+	locate,30,argv1,0
+	echo,you win
+	pointer.to,argv0,1
+function,loop1
+	const,0,1,2,5,10,30	
+	integer,number2,0
+	integer,number,0
+	integer,manytimes,0
+	integer,enables,0
+	pointer.from,enables,argv0
+	pointer.from,number,argv1
+	pointer.from,manytimes,argv2
+	locate,0,manytimes,0
+	getnumber,number2
+	locate,30,manytimes,0
+	like,number2,number,win,argv0,manytimes,0,0
+	big,number2,number,bb,argv0,manytimes,0,0
+	less,number2,number,bl,argv0,manytimes,0,0
+	add,manytimes,manytimes,1
+	pointer.to,argv2,manytimes
+	big,manytimes,10,lost,argv0,manytimes,0,0
+function,main
+	const,0,1,2,11,30,1023
+	integer,enable,0
+	integer,number,0
+	integer,manytimes,0
+	integer,p1,0
+	integer,p2,0
+	integer,p3,0
+	timer.rnd,number
+	bits.and,number,number,1023
+	div,number,number,11
+	pointer,p1,enable
+	pointer,p2,number
+	pointer,p3,manytimes
+	do,enable,1,loop1,p1,p2,p3,0
+	add,manytimes,manytimes,1
+	locate,0,manytimes,0
+	printnumber,number
+	locate,0,manytimes,0
+	echo,       
