@@ -77,6 +77,8 @@ int rem();
 int sstring();
 int memory();
 int fillmmem();
+int copymem();
+int printstring();
 FILE *f1;
 FILE *f2;
 
@@ -148,6 +150,7 @@ void readll(char *argv1){
 	ss[0]=s1;
 	n=findkey(ss[0]);
 	error=1;
+	if (n==0) printstring();
 	if (n==2) error=0;
 	if (n==3) echos();
 	if (n==5) iinteger(ss[1]);
@@ -158,6 +161,7 @@ void readll(char *argv1){
 	if (n==15) big();
 	if (n==16) less();
 	if (n==19) fillmmem();
+	if (n==20) copymem();
 	if (n==21) sstring();
 	if (n==29) ford();
 	if (n==31) pointers();
@@ -259,14 +263,12 @@ char *uppercase(char *s){
 //=================================================================
 //head()
 void head(){
+			//by line sky lib gnu (c)
 			addcode ("section .text");
 			addcode ("org 0x100");
 			addcode ("main1:");
 			addcode ("jmp start");
 			addcode ("db 'build in index32 developer tools.... '");
-	fprintf(f1,"\nechos:\nmov ah,9\nint 0x21\nret\n");
-	fprintf(f1,"\nvarm1 db 13,10,\"press key to continue ,esc to exit\",13,10,\"$\"\n");
-	fprintf(f1,"\nkey:\nmov dx,varm1\ncall echos\nmov ah,0\nint 0x16\ncmp al,27\njz keyesc\nret\nkeyesc:\njmp exit\nret\n");
 			addcode ("%include \"index1.dat\"");
 			addcode ("mains:");
 			addcode ("call main");
@@ -3932,6 +3934,115 @@ int fillmmem(){
 }
 
 
+int copymem(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+
+
+		fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov edi,[si]\n");
+		fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov ecx,[si]\n");
+		fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov esi,[bx]\n");
+
+
+
+									fprintf(f2,"	mov bp,0\n");
+									fprintf(f2,"	mov ds,bp\n");
+									fprintf(f2,"	mov es,bp\n");
+									fprintf(f2,"	call memcopy\n");
+									fprintf(f2,"	mov ax,cs\n");
+									fprintf(f2,"	mov ds,ax\n");
+									fprintf(f2,"	mov es,ax\n");
+
+
+
+	}
+	return 0;	
+}
+
+int printstring(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+		fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+		fprintf(f2,"	cs\n");
+		fprintf(f2,"	mov esi,[bx]\n");
+
+
+
+										
+										fprintf(f2,"	call len32\n");
+										fprintf(f2,"	mov ecx,eax\n");
+										fprintf(f2,"	call PRINT32\n");
+
+
+
+	}
+	return 0;	
+}
 
 
 
