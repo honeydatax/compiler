@@ -82,6 +82,8 @@ int printstring();
 int sets();
 int timerrnd();
 int ands();
+int inkeys();
+int sleeps();
 FILE *f1;
 FILE *f2;
 
@@ -170,9 +172,11 @@ void readll(char *argv1){
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
-	if (n==51)  timerrnd();
+	if (n==50) sleeps();
+	if (n==51) timerrnd();
 	if (n==55) ands();
 	if (n==66 || n==17) rem();
+	if (n==68) inkeys();
 	if (n==69) consts();
 	if (n==70) locate();
 	if (n==82) memory();
@@ -4183,4 +4187,83 @@ int ands(){
 		}
 		return 0;
 }
+
+//=================================================================
+
+
+int inkeys(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	call inkey\n");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov [bx],ax\n");
+
+
+
+	}
+	return 0;	
+}
+
+//=================================================================
+
+int sleeps(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov eax,[bx]\n");
+									fprintf(f2,"	call sleep\n");
+
+
+
+	}
+	return 0;	
+}
+
+//=================================================================
 
