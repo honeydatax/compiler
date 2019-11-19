@@ -84,6 +84,7 @@ int timerrnd();
 int ands();
 int inkeys();
 int sleeps();
+int divs();
 FILE *f1;
 FILE *f2;
 
@@ -172,6 +173,7 @@ void readll(char *argv1){
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
+	if (n==40) divs();
 	if (n==50) sleeps();
 	if (n==51) timerrnd();
 	if (n==55) ands();
@@ -4263,6 +4265,60 @@ int sleeps(){
 
 	}
 	return 0;	
+}
+
+//=================================================================
+
+//=================================================================
+
+
+int divs(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ebx,[si]");
+									addtxtbody("	mov ecx,0");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	clc");
+									addtxtbody("	div ebx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],eax");
+
+		}
+		return 0;
 }
 
 //=================================================================
