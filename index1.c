@@ -79,6 +79,7 @@ int memory();
 int fillmmem();
 int copymem();
 int printstring();
+int sets();
 FILE *f1;
 FILE *f2;
 
@@ -151,6 +152,7 @@ void readll(char *argv1){
 	n=findkey(ss[0]);
 	error=1;
 	if (n==0) printstring();
+	if (n==1) sets();
 	if (n==2) error=0;
 	if (n==3) echos();
 	if (n==5) iinteger(ss[1]);
@@ -4044,6 +4046,28 @@ int printstring(){
 	return 0;	
 }
 
-
+//=================================================================
+//set
+int sets(){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(paramets[1]==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+		fprintf(f1,"varnext%d db \"%s\",0\n",varnext,ss[2]);
+		varnext++;
+	}
+	return 0;
+}
+//=================================================================
 
 
