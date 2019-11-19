@@ -81,6 +81,7 @@ int copymem();
 int printstring();
 int sets();
 int timerrnd();
+int ands();
 FILE *f1;
 FILE *f2;
 
@@ -170,6 +171,7 @@ void readll(char *argv1){
 	if (n==31) pointers();
 	if (n==36) printnumber();
 	if (n==51)  timerrnd();
+	if (n==55) ands();
 	if (n==66 || n==17) rem();
 	if (n==69) consts();
 	if (n==70) locate();
@@ -4134,3 +4136,51 @@ int timerrnd(){
 }
 
 //=================================================================
+
+
+int ands(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(paramets[55]==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	and eax,ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+		}
+		return 0;
+}
+
