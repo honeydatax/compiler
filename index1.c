@@ -80,6 +80,7 @@ int fillmmem();
 int copymem();
 int printstring();
 int sets();
+int timerrnd();
 FILE *f1;
 FILE *f2;
 
@@ -168,6 +169,7 @@ void readll(char *argv1){
 	if (n==29) ford();
 	if (n==31) pointers();
 	if (n==36) printnumber();
+	if (n==51)  timerrnd();
 	if (n==66 || n==17) rem();
 	if (n==69) consts();
 	if (n==70) locate();
@@ -522,9 +524,13 @@ void head(){
 			addcode ("          push esi             ");   
 			addcode ("          mov si,x             ");   
 			addcode ("          cs             ");   				
-			addcode ("          mov [si+1],al        ");   
+			addcode ("          mov al,[si+1]        ");   
+			addcode ("          inc al        ");   
 			addcode ("          cs             ");   				
-			addcode ("          mov [si],dl ");
+			addcode ("          mov [si+1],al        ");   
+			addcode ("          mov al,0        ");   
+			addcode ("          cs             ");   				
+			addcode ("          mov [si],al ");
 			addcode ("          pop esi             ");   
 			addcode ("          PRINT3213:");
 			addcode ("          pop ebp              ");  
@@ -4071,3 +4077,60 @@ int sets(){
 //=================================================================
 
 
+int timerrnd(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+
+									fprintf(f2,"	mov si,L20\n");
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov cx,[si]\n");
+									fprintf(f2,"	mov ax,4\n");
+									fprintf(f2,"	add cx,ax\n");
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov [si],cx\n");
+									fprintf(f2,"	mov ax,endf\n");
+									fprintf(f2,"	cmp cx,ax\n");
+									fprintf(f2,"	jl linenumbers%d\n",lineno);
+									fprintf(f2,"	sub cx,ax\n");
+									fprintf(f2,"	mov ax,257\n");
+									fprintf(f2,"	add cx,ax\n");
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov [si],cx\n");
+									fprintf(f2,"linenumbers%d:\n",lineno);
+									fprintf(f2,"	mov si,cx\n");
+									fprintf(f2,"	xor ax,ax\n");
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov eax,[si]\n");
+									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+									fprintf(f2,"	cs\n");
+									fprintf(f2,"	mov [di],eax\n");
+
+
+
+	}
+	return 0;	
+}
+
+//=================================================================
