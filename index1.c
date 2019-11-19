@@ -86,6 +86,7 @@ int inkeys();
 int sleeps();
 int divs();
 int muls();
+int getnumbers();
 FILE *f1;
 FILE *f2;
 
@@ -173,6 +174,7 @@ void readll(char *argv1){
 	if (n==21) sstring();
 	if (n==29) ford();
 	if (n==31) pointers();
+	if (n==35) getnumbers();
 	if (n==36) printnumber();
 	if (n==39) muls();
 	if (n==40) divs();
@@ -4375,6 +4377,67 @@ int muls(){
 
 		}
 		return 0;
+}
+
+//=================================================================
+
+int getnumbers(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	int i6;
+	int i7;
+	int i8;
+	int i9;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+									addtxtbody("	mov bx,L50");
+									addtxtbody("	mov dx,bx");
+									addtxtbody("	mov cl,10");
+									addtxtbody("	mov bx,dx");
+									addtxtbody("	xor ch,ch");
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],cx");
+									addtxtbody("	mov ah,0xa");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov si,L50");
+									addtxtbody("	inc si");
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov ah,0");
+									addtxtbody("	add si,ax");
+									addtxtbody("	inc si");
+									addtxtbody("	mov al,0");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov si,L50");
+									addtxtbody("	inc si");
+									addtxtbody("	inc si");
+									addtxtbody("	call MEM32 ");
+									addtxtbody("	mov esi,eax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov di,bx");
+									addtxtbody("	call val");
+
+
+
+
+	}
+	return 0;	
 }
 
 //=================================================================
