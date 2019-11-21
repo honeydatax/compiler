@@ -127,8 +127,28 @@ int main(int argc, char *argv[]){
 		if (eerror==1) {
 			printf("fail to compile error\n");
 		}else{
-			system("nasm -o out.com index.dat");
-			printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
+			eerror=0;
+			system("nasm -o out.com index.dat 2> indexx.dat");
+			f1=fopen("indexx.dat","r");
+			do{
+				if (!feof(f1)){
+					lineno++;
+					fgets(c,800,f1);
+					dd=strstr(c,"sub");
+					if (dd!=NULL){
+						dd=dd+3;
+						i=atoi(dd);
+						printf("function declare not exists you are call a function not creat \"%s\"\n", subs[i]);
+						eerror=1;		
+						c[0]=0;
+					}
+					printf("%s\n",c);
+					
+				}
+				c[0]=0;
+			}while(!feof(stdin));
+			fclose(f1);
+			if(eerror==0) printf("\ndone...\nopen file index.dat and index1.dat to see codes\n");
 		}
 return 0;
 }
