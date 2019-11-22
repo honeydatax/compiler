@@ -5227,7 +5227,7 @@ void emain(char *argv){
 	strcpy(argvss,argv);
 	strcpy(aargvss,"(");
 	strcat(aargvss,argvss);
-	strcat(aargvss,")");
+	strcat(aargvss,"+0)");
 	params(aargvss);
 
 }
