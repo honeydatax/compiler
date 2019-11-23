@@ -4724,7 +4724,7 @@ void evalmuls(int d0,int d1,int d2){
 	fprintf(f3,"\n");
 	fprintf(f3,"	mov si,varnext%d\n",d1);
 	fprintf(f3,"	cs\n");
-	fprintf(f3,"	mov ax,[si]\n");
+	fprintf(f3,"	mov eax,[si]\n");
 	fprintf(f3,"	mov si,varnext%d\n",d2);
 	fprintf(f3,"	cs\n");
 	fprintf(f3,"	mov ebx,[si]\n");
