@@ -120,6 +120,7 @@ void params(char *argv);
 void emain(char *argv);
 int returneval;
 int ffloat(char *s);
+int printfloat();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -254,6 +255,7 @@ void readll(char *argv1){
 	if (n==100) outside();
 	if (n==101) doloops();
 	if (n==102) evals();
+	if (n==103) printfloat();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2265,6 +2267,7 @@ void head(){
 		addkey ("outside",8); //100
 		addkey ("loop",8); //101
 		addkey ("eval",3); //102
+		addkey ("printfloat",2); //103
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5273,6 +5276,62 @@ int ffloat(char *s){
 }
 //=================================================================
 
+int printfloat(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov edi,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	call STR32");
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	mov eax,9");
+									addtxtbody("	clc");
+									addtxtbody("	add esi,eax");
+									addtxtbody("	mov edi,esi");
+									addtxtbody("	inc edi");
+									addtxtbody("	mov ecx,2");
+									addtxtbody("	call MOVEMEM32");
+									addtxtbody("	mov al,46");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	dec esi");
+									addtxtbody("	mov [esi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	call len32");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	call PRINT32");
+
+
+
+	}
+	return 0;
+}
+
+//=================================================================
 
 
 
