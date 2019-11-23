@@ -121,6 +121,7 @@ void emain(char *argv);
 int returneval;
 int ffloat(char *s);
 int printfloat();
+int tinteger();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -256,6 +257,7 @@ void readll(char *argv1){
 	if (n==101) doloops();
 	if (n==102) evals();
 	if (n==103) printfloat();
+	if (n==104) tinteger();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2268,6 +2270,7 @@ void head(){
 		addkey ("loop",8); //101
 		addkey ("eval",3); //102
 		addkey ("printfloat",2); //103
+		addkey ("(integer)",3); //104
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5333,6 +5336,48 @@ int printfloat(){
 
 //=================================================================
 
+int tinteger(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									addtxtbody("	mov ebx,100");
+									addtxtbody("	mov ecx,0");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	clc");
+									addtxtbody("	div ebx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],eax");
+
+		}
+		return 0;
+}
+
+//=================================================================
 
 
 
