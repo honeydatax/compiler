@@ -119,6 +119,7 @@ int solver(char *argv);
 void params(char *argv);
 void emain(char *argv);
 int returneval;
+int ffloat(char *s);
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -240,6 +241,7 @@ void readll(char *argv1){
 	if (n==68) inkeys();
 	if (n==69) consts();
 	if (n==70) locate();
+	if (n==74) ffloat(ss[1]);
 	if (n==82) memory();
 	if (n==84) color();
 	if (n==93) declair(ss[1]);
@@ -5238,6 +5240,38 @@ void emain(char *argv){
 
 //=================================================================
 
+int ffloat(char *s){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dd=0;
+	if(3==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+		ss2=uppercase(ss[2]);
+		dd=atof(ss2);
+		dd=dd*100;
+		l=(long) dd;
+		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+		varnext++;
+									fprintf(f2,"	mov eax,%lu\n",l);
+									fprintf(f2,"	mov bx,varnext%d\n",i+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+
+	}
+	return 0;
+}
+//=================================================================
 
 
 
