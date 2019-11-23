@@ -4686,7 +4686,7 @@ int evals(){
 void evalsums(int d0,int d1,int d2){
 	if(nextsnexts==0)lastslasts=d1;
 	fprintf(f3,"\n");
-	fprintf(f3,"	mov si,varnext%d\n",lastslasts);
+	fprintf(f3,"	mov si,varnext%d\n",d1);
 	fprintf(f3,"	cs\n");
 	fprintf(f3,"	mov eax,[si]\n");
 	fprintf(f3,"	mov si,varnext%d\n",d2);
@@ -4706,7 +4706,7 @@ void evalsums(int d0,int d1,int d2){
 void evalsubs(int d0,int d1,int d2){
 	if(nextsnexts==0)lastslasts=d1;
 	fprintf(f3,"\n");
-	fprintf(f3,"	mov si,varnext%d\n",lastslasts);
+	fprintf(f3,"	mov si,varnext%d\n",d1);
 	fprintf(f3,"	cs\n");
 	fprintf(f3,"	mov eax,[si]\n");
 	fprintf(f3,"	mov si,varnext%d\n",d2);
@@ -4726,7 +4726,7 @@ void evalsubs(int d0,int d1,int d2){
 void evalmuls(int d0,int d1,int d2){
 	if(nextsnexts==0)lastslasts=d1;
 	fprintf(f3,"\n");
-	fprintf(f3,"	mov si,varnext%d\n",lastslasts);
+	fprintf(f3,"	mov si,varnext%d\n",d1);
 	fprintf(f3,"	cs\n");
 	fprintf(f3,"	mov ax,[si]\n");
 	fprintf(f3,"	mov si,varnext%d\n",d2);
@@ -4748,7 +4748,7 @@ void evalmuls(int d0,int d1,int d2){
 void evaldivs(int d0,int d1,int d2){
 	if(nextsnexts==0)lastslasts=d1;
 	fprintf(f3,"\n");
-	fprintf(f3,"	mov si,varnext%d\n",lastslasts);
+	fprintf(f3,"	mov si,varnext%d\n",d1);
 	fprintf(f3,"	cs\n");
 	fprintf(f3,"	mov eax,[si]\n");
 	fprintf(f3,"	mov si,varnext%d\n",d2);
