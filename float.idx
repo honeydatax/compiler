@@ -10,6 +10,6 @@ function,main
 function,number
 	const,0,1,2
 	integer,y,0
-	eval,y,argv0/100	
+	(integer),y,argv0	
 	locate,0,y,0
 	printfloat,argv0
