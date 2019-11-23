@@ -2453,6 +2453,11 @@ int iinteger(char *s){
 		l=atol(ss2);
 		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
 		varnext++;
+									fprintf(f2,"	mov eax,%lu\n",l);
+									fprintf(f2,"	mov bx,varnext%d\n",i+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
 
 	}
 	return 0;
@@ -3936,6 +3941,11 @@ int memory(){
 		l=atol(ss2);
 		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
 		varnext++;
+									fprintf(f2,"	mov eax,%lu\n",l);
+									fprintf(f2,"	mov bx,varnext%d\n",i+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
 	}
 	return 0;
 }
