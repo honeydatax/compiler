@@ -118,6 +118,7 @@ int lists(char *argv);
 int solver(char *argv);
 void params(char *argv);
 void emain(char *argv);
+int ddouble(char *s);
 int returneval;
 int ffloat(char *s);
 int printfloat();
@@ -260,6 +261,7 @@ void readll(char *argv1){
 	if (n==103) printfloat();
 	if (n==104) tinteger();
 	if (n==105) tfloat();
+	if (n==106) ddouble(ss[1]);
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2274,6 +2276,7 @@ void head(){
 		addkey ("printfloat",2); //103
 		addkey ("(integer)",3); //104
 		addkey ("(float)",3); //105
+		addkey ("double",3); //106
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5425,6 +5428,40 @@ int tfloat(){
 
 //=================================================================
 
+//=================================================================
+
+int ddouble(char *s){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dd=0;
+	if(3==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+		ss2=uppercase(ss[2]);
+		dd=atof(ss2);
+		dd=dd*100000;
+		l=(long) dd;
+		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+		varnext++;
+									fprintf(f2,"	mov eax,%lu\n",l);
+									fprintf(f2,"	mov bx,varnext%d\n",i+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
+
+
+	}
+	return 0;
+}
+//=================================================================
 
 
 
