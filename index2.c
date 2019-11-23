@@ -4881,10 +4881,8 @@ nextsnexts=0;
 		if (labels[i*50]!=0){
 			if((labels[i*50]>'A'-1 && labels[i*50]<'Z'+1)||(labels[i*50]>'a'-1 && labels[i*50]<'z'+1)||(labels[i*50]>'0'-1 && labels[i*50]<'9'+1)||(labels[i*50]=='!')||(labels[i*50]=='-' && labels[i*50+1]!=0)){
 				
-				if (i==0) {
-					d=evalgetnumbers(p);
+				d=evalgetnumbers(p);
 
-				}
 				
 			}else{
 				if (labels[i*50]=='+'){
