@@ -124,6 +124,8 @@ int ffloat(char *s);
 int printfloat();
 int tinteger();
 int tfloat();
+int tdouble();
+int printdouble();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -262,6 +264,8 @@ void readll(char *argv1){
 	if (n==104) tinteger();
 	if (n==105) tfloat();
 	if (n==106) ddouble(ss[1]);
+	if (n==107) tdouble();
+	if (n==108) printdouble();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2277,6 +2281,8 @@ void head(){
 		addkey ("(integer)",3); //104
 		addkey ("(float)",3); //105
 		addkey ("double",3); //106
+		addkey ("(double)",3); //107
+		addkey ("printdouble",2); //108
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5448,7 +5454,7 @@ int ddouble(char *s){
 		}
 		ss2=uppercase(ss[2]);
 		dd=atof(ss2);
-		dd=dd*100000;
+		dd=dd*10000;
 		l=(long) dd;
 		fprintf(f1,"varnext%d dd %lu\n",varnext,l);
 		varnext++;
@@ -5463,7 +5469,109 @@ int ddouble(char *s){
 }
 //=================================================================
 
+int tdouble(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
 
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									addtxtbody("	mov ebx,10000");
+									addtxtbody("	mov ecx,0");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	clc");
+									addtxtbody("	mul ebx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],eax");
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int printdouble(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov edi,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	call STR32");
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	mov eax,9");
+									addtxtbody("	clc");
+									addtxtbody("	add esi,eax");
+									addtxtbody("	mov edi,esi");
+									addtxtbody("	inc edi");
+									addtxtbody("	mov ecx,4");
+									addtxtbody("	call MOVEMEM32");
+									addtxtbody("	mov al,46");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	dec esi");
+									addtxtbody("	dec esi");
+									addtxtbody("	dec esi");
+									addtxtbody("	mov [esi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov si,L22");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	call len32");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	call PRINT32");
+
+
+
+	}
+	return 0;
+}
+
+//=================================================================
 
 
 
