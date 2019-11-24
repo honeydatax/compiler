@@ -1,0 +1,11 @@
+declare,main
+function,main
+	const,0,1,2,17
+	long,a,0x2222222284444444
+	long,b,0x2222222284444444
+	long,c,0
+	long.add,c,a,b
+	locate,0,0,0
+	echo,0123456789012345|
+	locate,0,1,0
+	printhex,c
