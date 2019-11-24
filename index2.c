@@ -130,6 +130,7 @@ int ttinteger();
 int ttfloat();
 int lllong(char *s);
 int printhex();
+int longadd();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -274,6 +275,7 @@ void readll(char *argv1){
 	if (n==110) ttfloat();
 	if (n==111) lllong(ss[1]);
 	if (n==112)  printhex();
+	if (n==113)  longadd();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2368,6 +2370,7 @@ void head(){
 		addkey ("((float))",3); //110
 		addkey ("long",3); //111
 		addkey ("printhex",2); //112
+		addkey ("long.add",4); //113
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5799,8 +5802,83 @@ int printhex(){
 		return 0;
 }
 
+//=================================================================
+
+int longadd(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									addtxtbody("	mov edx,0");
+									addtxtbody("	mov ebx,4");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add eax,ecx");
+									fprintf(f2,"	jnc linrenos%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linrenos%d:\n",lineno);
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],eax");
 
 
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	clc");
+									addtxtbody("	add si,bx");
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	clc");
+									addtxtbody("	add si,bx");
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add eax,ecx");
+									addtxtbody("	clc");
+									addtxtbody("	add eax,edx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	clc");
+									addtxtbody("	add si,bx");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],eax");
 
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
 
