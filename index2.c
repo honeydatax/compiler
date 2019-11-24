@@ -132,6 +132,7 @@ int lllong(char *s);
 int printhex();
 int longadd();
 int longsub();
+int longmul();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -278,6 +279,7 @@ void readll(char *argv1){
 	if (n==112)  printhex();
 	if (n==113)  longadd();
 	if (n==114) longsub();
+	if (n==115)  longmul();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2374,6 +2376,7 @@ void head(){
 		addkey ("printhex",2); //112
 		addkey ("long.add",4); //113
 		addkey ("long.sub",4); //113
+		addkey ("long.mul",4); //114
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5963,3 +5966,61 @@ int longsub(){
 
 //=================================================================
 
+int longmul(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									addtxtbody("	mov edi,4");
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	mov edx,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ebx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	mul ebx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov [si],eax");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],edx");
+
+
+		}
+		return 0;
+}
