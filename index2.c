@@ -136,6 +136,7 @@ int longmul();
 int windowstextes();
 int windowstextesprints();
 int windowstextesclear();
+int longdiv();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -286,6 +287,7 @@ void readll(char *argv1){
 	if (n==116) windowstextes();
 	if (n==117) windowstextesprints();
 	if (n==118)  windowstextesclear();
+	if (n==119)  longdiv();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2735,6 +2737,7 @@ void head(){
 		addkey ("window.text",5); //116
 		addkey ("window.text.print",6); //117
 		addkey ("window.text.clear",5); //118
+		addkey ("long.div",4); //119
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -6584,3 +6587,64 @@ int windowstextesclear(){
 
 //=================================================================
 
+
+int longdiv(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									addtxtbody("	mov edi,4");
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	mov edx,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ebx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[si]");
+									addtxtbody("	clc");
+									addtxtbody("	div ebx");
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov [si],eax");
+									addtxtbody("	clc");
+									addtxtbody("	add si,di");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ecx");
+
+
+		}
+		return 0;
+}
+
+//=================================================================
