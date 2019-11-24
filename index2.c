@@ -134,6 +134,7 @@ int longadd();
 int longsub();
 int longmul();
 int windowstextes();
+int windowstextesprints();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -282,6 +283,7 @@ void readll(char *argv1){
 	if (n==114) longsub();
 	if (n==115)  longmul();
 	if (n==116) windowstextes();
+	if (n==117) windowstextesprints();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2294,6 +2296,151 @@ void head(){
 			addcode ("          pop eax                ");
 			addcode ("          RET                ");
 			addcode ("");
+			addcode ("windowstxtptr:");
+			addcode ("          push eax                ");
+			addcode ("          push ebx                ");
+			addcode ("          push ecx                ");
+			addcode ("          push edx                ");
+			addcode ("          push esi                ");
+			addcode ("          push edi                ");
+			addcode ("          	mov si,twindows     ");
+			addcode ("              cs    ");
+			addcode ("              mov [si],eax        ");
+			addcode ("              cs    ");
+			addcode ("              mov [si+4],ebx      ");
+			addcode ("              cs    ");
+			addcode ("              mov [si+8],ecx     ");
+			addcode ("              cs    ");
+			addcode ("              mov [si+12],edx    ");
+			addcode ("              cs    ");
+			addcode ("              cs    ");
+			addcode ("              mov [si+24],edi    ");
+			addcode ("              cs    ");
+			addcode ("              mov eax,[si]    ");
+			addcode ("              cs    ");
+			addcode ("              mov ecx,[si+8]    ");
+			addcode ("              cmp eax,79   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("              cmp ecx,79   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("              cmp eax,0   ");
+			addcode ("		jb windowstxtptrexit");
+			addcode ("              cmp ecx,0   ");
+			addcode ("		jb windowstxtptrexit");
+			addcode ("              cmp eax,ecx   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("		clc");
+			addcode ("		sub ecx,eax");
+			addcode ("              cs    ");
+			addcode ("		mov [si+8],ecx");
+			addcode ("		mov eax,80");
+			addcode ("		clc");
+			addcode ("		sub eax,ecx");
+			addcode ("		clc");
+			addcode ("		add eax,eax");
+			addcode ("              cs    ");
+			addcode ("		mov [si+16],eax");
+			addcode ("              cs    ");
+			addcode ("              mov eax,[si+4]    ");
+			addcode ("              cs    ");
+			addcode ("              mov ecx,[si+12]    ");
+			addcode ("              cmp eax,24   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("              cmp ecx,24   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("              cmp eax,0   ");
+			addcode ("		jb windowstxtptrexit");
+			addcode ("              cmp ecx,0   ");
+			addcode ("		jb windowstxtptrexit");
+			addcode ("              cmp eax,ecx   ");
+			addcode ("		ja windowstxtptrexit");
+			addcode ("		clc");
+			addcode ("		sub ecx,eax");
+			addcode ("              cs    ");
+			addcode ("		mov [si+12],ecx");
+			addcode ("              cs    ");
+			addcode ("		mov eax,[si+4]");
+			addcode ("		mov ecx,0");
+			addcode ("		mov edx,0");
+			addcode ("		mov ebx,160");
+			addcode ("		clc");
+			addcode ("		mul ebx");
+			addcode ("		cs");
+			addcode ("		mov ebx,[si]");
+			addcode ("		clc");
+			addcode ("		add eax,ebx");
+			addcode ("		clc");
+			addcode ("		add eax,ebx");
+			addcode ("		mov ebx,0xb8000");
+			addcode ("		clc");
+			addcode ("		add eax,ebx");
+			addcode ("		mov edi,eax");
+			addcode ("		mov ecx,[si+8]");
+			addcode ("		mov edx,2");
+			addcode ("          	cs     ");
+			addcode ("          	mov ah,[si+12]     ");
+			addcode ("          	mov ebx,160     ");
+			addcode ("          	cs     ");
+			addcode ("          	mov edx,[si+24]     ");
+			addcode ("          	mov esi,edx     ");
+			addcode ("          	mov edx,2     ");
+			addcode ("		windowstxtptrstart:");
+			addcode ("			push ax");
+			addcode ("			call FILLTXT32");
+			addcode ("			cmp al,0");
+			addcode ("			jz windowstxtptrexit1");
+			addcode ("			pop ax");
+			addcode ("			clc");				
+			addcode ("			add edi,ebx");
+			addcode ("			dec ah");				
+			addcode ("			cmp ah,0");
+			addcode ("			jnz windowstxtptrstart");
+			addcode ("windowstxtptrexit:");
+			addcode ("jmp windowstxtptrexit2");
+			addcode ("windowstxtptrexit1:");
+			addcode ("		pop ax");
+			addcode ("windowstxtptrexit2:");
+			addcode ("          pop edi                ");
+			addcode ("          pop esi                ");
+			addcode ("          pop edx                ");
+			addcode ("          pop ecx                ");
+			addcode ("          pop ebx                ");
+			addcode ("          pop eax                ");
+			addcode ("          RET                ");
+			addcode ("");
+			addcode ("FILLTXT32:             ");   
+			addcode ("          ");              
+			addcode ("          push ebx  ");              
+			addcode ("          push ecx  ");              
+			addcode ("          push edx  ");              
+			addcode ("          push edi  ");              
+			addcode ("          push ebp  ");              
+			addcode ("          push ds   ");             
+			addcode ("          mov bp,0  ");              
+			addcode ("          mov ds,bp");
+			addcode ("          cmp edx,0");
+			addcode ("          JNZ FILLTXT3211");
+			addcode ("          inc edx       ");         
+			addcode ("          FILLTXT3211:");
+			addcode ("          FILLTXT321:      ");          
+			addcode ("                    mov al,[esi]");
+			addcode ("                    cmp al,0");			
+			addcode ("                    jz FILLTXT32111");
+			addcode ("                    mov [edi],al");
+			addcode ("                    clc ");               
+			addcode ("                    add edi,edx");
+			addcode ("                    inc esi");
+			addcode ("                    dec ecx      ");          
+			addcode ("                    JNZ FILLTXT321");
+			addcode ("          FILLTXT32111:      ");
+			addcode ("          pop ds                ");
+			addcode ("          pop ebp                ");
+			addcode ("          pop edi                ");
+			addcode ("          pop edx                ");
+			addcode ("          pop ecx                "); 
+			addcode ("          pop ebx                ");
+			addcode ("          ");
+			addcode ("          RET                ");
 			addcode ("section .data");
 			addcode ("hhex db \"0123456789ABCDEF.$\",0");
 			addcode ("          read32addrs1 dd 0");
@@ -2345,6 +2492,7 @@ void head(){
 			addcode ("y     db 0");
 			addcode ("color dw 07h");
 			addcode ("twindows dd 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+			addcode ("twindowsptr dd 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 			addcode ("L4 db 0,0,0,0,0");
 			addcode ("L18 dw 0,0");
 			addcode ("L20 dw 0,0,0,0,0,0,0,0");
@@ -2482,7 +2630,8 @@ void head(){
 		addkey ("long.add",4); //113
 		addkey ("long.sub",4); //114
 		addkey ("long.mul",4); //115
-		addkey ("window.text",4); //116
+		addkey ("window.text",5); //116
+		addkey ("window.text.print",6); //117
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -6131,6 +6280,7 @@ int longmul(){
 		return 0;
 }
 
+//=================================================================
 
 int windowstextes(){
 	int i;
@@ -6190,8 +6340,79 @@ int windowstextes(){
 		return 0;
 }
 
+//=================================================================
+
+int windowstextesprints(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(6==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[5]);
+		i5=findvar(ss1);
+		if (i5==-1){
+			printf("error var4\n");
+			error=1;
+		}
 
 
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ebx,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edx,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i5+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[si]");
+									addtxtbody("	call windowstxtptr");
 
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
 
