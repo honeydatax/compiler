@@ -128,6 +128,8 @@ int tdouble();
 int printdouble();
 int ttinteger();
 int ttfloat();
+int lllong(char *s);
+int printhex();
 FILE *f1;
 FILE *f2;
 FILE *f3;
@@ -270,6 +272,8 @@ void readll(char *argv1){
 	if (n==108) printdouble();
 	if (n==109) ttinteger();
 	if (n==110) ttfloat();
+	if (n==111) lllong(ss[1]);
+	if (n==112)  printhex();
 	if (n>=substart) callfunction(ss[0]);
 	//printf("**%d\n",n);
 	if (error==1){
@@ -2108,8 +2112,80 @@ void head(){
 			addcode ("	mov ebx,[esi]");
 			addcode ("	add esi,ecx");
 			addcode ("	ret");
+			addcode ("HEX:                ");
+			addcode ("          push ax                ");
+			addcode ("          push bx                ");
+			addcode ("          push cx                ");
+			addcode ("          push dx                ");
+			addcode ("          push si                ");
+			addcode ("          push di                ");
+			addcode ("          inc bx                ");
+			addcode ("          xor ah,ah");
+			addcode ("          mov dx,ax");
+			addcode ("          and ax,0fh");
+			addcode ("          mov si,hhex");
+			addcode ("          clc                ");
+			addcode ("          add si,ax ");
+			addcode ("          cs ");
+			addcode ("          MOV AL,[SI]");
+			addcode ("          cs ");
+			addcode ("          mov [bx],al");
+			addcode ("          dec bx                ");
+			addcode ("          mov ax,dx");
+			addcode ("          and ax,0f0h");
+			addcode ("          shr ax,4               "); 
+			addcode ("          mov si,hhex");
+			addcode ("          clc                ");
+			addcode ("          add si,ax ");
+			addcode ("          cs ");
+			addcode ("          MOV AL,[SI]");
+			addcode ("          cs ");
+			addcode ("          mov [bx],al");
+			addcode ("          pop di                ");
+			addcode ("          pop si                ");
+			addcode ("          pop dx                ");
+			addcode ("          pop cx                ");
+			addcode ("          pop bx                ");
+			addcode ("          pop ax                ");
+			addcode ("          RET                ");
+			addcode ("");
+			addcode ("hex64:");
+			addcode ("          push ax                ");
+			addcode ("          push bx                ");
+			addcode ("          push cx                ");
+			addcode ("          push dx                ");
+			addcode ("          push si                ");
+			addcode ("          push di                ");
+			addcode ("		mov cx,8");
+			addcode ("		mov bx,L52");
+			addcode ("		add bx,cx");
+			addcode ("		add bx,cx");
+			addcode ("		inc bx");
+			addcode ("		mov eax,32");		
+			addcode ("		cs");
+			addcode ("		mov [bx],eax");
+			addcode ("		dec bx");
+			addcode ("		dec bx");
+			addcode ("		hex641:");
+			addcode ("			cs");
+			addcode ("			mov ax,[si]");
+			addcode ("			call HEX");		
+			addcode ("			dec bx");
+			addcode ("			dec bx");
+			addcode ("			inc si");
+			addcode ("			dec cx");
+			addcode ("			cmp cx,0");
+			addcode ("			jnz hex641");
+			addcode ("          pop di                ");
+			addcode ("          pop si                ");
+			addcode ("          pop dx                ");
+			addcode ("          pop cx                ");
+			addcode ("          pop bx                ");
+			addcode ("          pop ax                ");
+			addcode ("          RET                ");
 			addcode ("");
 			addcode ("section .data");
+			addcode ("hhex db \"0123456789ABCDEF.$\",0");
 			addcode ("          read32addrs1 dd 0");
 			addcode ("          read32addrs2 dd 0");
 			addcode ("          read32counter1 dd 0");
@@ -2168,6 +2244,7 @@ void head(){
 			addcode ("L22 db '00000000000 ',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
 			addcode ("L50 times 260 db 32");
 			addcode ("L51 db 0");
+			addcode ("L52 db 17,\"0000000000000000$$$$$$\",0");
 			addcode ("rreservemem dd 0");
 			addcode ("rreservemem2 dd 0");
 
@@ -2289,6 +2366,8 @@ void head(){
 		addkey ("printdouble",2); //108
 		addkey ("((integer))",3); //109
 		addkey ("((float))",3); //110
+		addkey ("long",3); //111
+		addkey ("printhex",2); //112
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -5669,7 +5748,56 @@ int ttfloat(){
 
 //=================================================================
 
+int lllong(char *s){
+	int i;
+	char *ss1;
+	char *ss2;
+	long l;
+	if(3==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
 
+		fprintf(f1,"varnext%d dq %s\n",varnext,ss[2]);
+		varnext++;
+
+
+	}
+	return 0;
+}
+//=================================================================
+
+//=================================================================
+int printhex(){
+		int vvar;
+		char *ss1;
+		int i;
+		if(2==count){
+		error=0;
+		ss1=uppercase(ss[1]);
+		i=findvar(ss1);
+		if (i==-1){
+			addvar (ss1);
+			i=findvar(ss1);
+		}else{
+			error=1;
+		}
+
+			fprintf(f2,"	mov si,varnext%d\n",i+varnextstart);
+			fprintf(f2,"	call hex64\n");
+			fprintf(f2,"	mov si,L52\n");
+			addtxtbody("	call echo");
+
+			error=0;
+		}
+		return 0;
+}
 
 
 
