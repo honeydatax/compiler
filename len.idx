@@ -1,0 +1,12 @@
+declare,main
+function,main
+	const,0,1,2
+	set,s,hello world.!
+	integer,ss,0
+	integer,len,0
+	locate,0,0,0
+	pointer,ss,s
+	print,ss
+	locate,0,1,0
+	string.len,len,ss
+	printnumber,len
