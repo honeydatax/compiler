@@ -3,49 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "index2.h"
 
-#define textsize 900000
-#define nlines 12000
-
-int lastslasts=0;
-int nextsnexts=0;
-char labels[50*50];
-int mainsub=0;
-int substart=0;
-int n=0;
-int parametscount=0;
-int paramets[5000];
-int varnextstart=0;
-int varnext=0;
-long varsart;
-int lineno;
-int error;
-int eerror;
-int page=0;
-char linec[800];
-long cursor=0;
-int subcursor=0;
-int varcursor=0;
-char *c=linec;
-char *cc;
-char *ccc;
-char *tabs[nlines];
-char *var[5000];
-char *subs[5000];
-char var0[1024];
-char var3[160];
-char varvar[64000];
-int count;
-int tindex=0;
-char s[textsize];
-char *ss[500];
-int count2=0;
-char *i[1024];
-char *ii[50];
-char *iii[1024];
-char var2[]=";";
 void readll(char *argv1);
-int ccount=0;
 void msgbox();
 void head();
 int register_var(char *argv1 );
@@ -61,7 +21,6 @@ void addtxtbody(char *s);
 void addtxtbodynx(char *s);
 void addtxtbodynb(int n);
 void addvar(char *sss);
-int findvar(char *s);
 int declair(char *s);
 int iinteger(char *s);
 int function(char *s);
@@ -137,9 +96,6 @@ int windowstextes();
 int windowstextesprints();
 int windowstextesclear();
 int longdiv();
-FILE *f1;
-FILE *f2;
-FILE *f3;
 
 //=================================================================
 //MAIN
@@ -289,6 +245,7 @@ void readll(char *argv1){
 	if (n==118)  windowstextesclear();
 	if (n==119)  longdiv();
 	if (n>=substart) callfunction(ss[0]);
+	readll2(n);
 	//printf("**%d\n",n);
 	if (error==1){
 		printf("line error:%d\n",lineno);
@@ -342,32 +299,7 @@ void msgbox(){
 	printf ("\e[0;37;40m");
 }
 
-//=================================================================
-//uppercase
-char *uppercase(char *s){
-	int n;
-	int nn=strlen(s);
-	int value=0;
-	char *r=s;
-	char c=0;
-	for(n=0;n<nn;n++){
-		c=s[n];
-		if (c!=0){
-			if (value==0 && c>32){
-				value=1;
-				r=s+n;
-			}
-			if (c>='a' && c<='z')s[n]=c-32;
-			if (value==1 && c<33){
-				s[n]=0;
-				n=nn+1;
-			}
-		}
-		
-	}
 
-	return r;
-}
 
 //=================================================================
 //head()
@@ -2544,6 +2476,7 @@ void head(){
 			addcode ("          pop ebx                ");
 			addcode ("          pop eax                ");
 			addcode ("          RET                ");
+			addcode2();
 			addcode ("");
 			addcode ("section .data");
 			addcode ("hhex db \"0123456789ABCDEF.$\",0");
@@ -2738,6 +2671,7 @@ void head(){
 		addkey ("window.text.print",6); //117
 		addkey ("window.text.clear",5); //118
 		addkey ("long.div",4); //119
+		addkeys2();
 		varsart=cursor;
 		substart=subcursor;
 }
@@ -2780,10 +2714,7 @@ int findkey(char *s){
 }
 
 //=================================================================
-//addtxtbody
-void addtxtbody(char *s){
-	fprintf(f2,"%s\n",s);
-}
+
 //=================================================================
 //addtxtbodynx
 void addtxtbodynx(char *s){
@@ -2810,20 +2741,6 @@ void addvar(char *sss){
 }
 
 
-//=================================================================
-//findvar
-int findvar(char *s){
-	int n;
-	int i=-1;
-	for (n=0;n<varcursor;n++){
-		if(strcmp(s,var[n])==0){
-			i=n;
-			n=varcursor+1;
-		}
-		
-	}
-	return i;
-}
 
 //=================================================================
 //declair
