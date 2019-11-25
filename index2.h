@@ -53,14 +53,17 @@ int findvar(char *s);
 int back();
 int doevents();
 int box();
-
+int hline();
+int vline();
 
 //=================================================================
 void readll2(int n){
 	if (n==71)  screen();
 	if (n==75)  back();
+	if (n==76)  hline();
 	if (n==77)  doevents();
 	if (n==78)  box();
+	if (n==85)  vline();
 }
 
 //=================================================================
@@ -375,3 +378,211 @@ int box(){
 }
 
 //=================================================================
+
+
+int hline(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(5==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,hlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call hlined32");
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor ebx,ebx");
+									addtxtbody("	cs");
+									addtxtbody("	mov bx,[si]");
+									addtxtbody("	sub ebx,eax");
+									addtxtbody("	mov eax,ebx");
+									addtxtbody("	push eax");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mov ebx,4");
+									addtxtbody("	div ebx");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mul ebx");
+									addtxtbody("	pop ebx");
+									addtxtbody("	sub ebx,eax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	xor eax,eax");
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	sub eax,ebx");
+
+									addtxtbody("	mov si,hlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,hlinex1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,hlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call hlined32");
+
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+
+int vline(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(5==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[4]);
+		i4=findvar(ss1);
+		if (i4==-1){
+			printf("error var4\n");
+			error=1;
+		}
+
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vlinex");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vliney");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov si,vliney1");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],ax");
+									fprintf(f2,"	mov si,varnext%d\n",i4+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[si]");
+									addtxtbody("	mov si,vlinecolor");
+									addtxtbody("	cs");
+									addtxtbody("	mov [si],al");
+									addtxtbody("	call vline32");
+
+
+
+
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+
