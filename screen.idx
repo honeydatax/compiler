@@ -1,0 +1,72 @@
+declare,main
+declare,draw
+declare,clear.color
+declare,set.color
+function,main
+	const,0,1,2,12,10,630,200,3,4,7,256
+	integer,i,0
+	integer,n,0
+	integer,box.pointer,0
+	integer,box.x1,0
+	integer,box.y1,0
+	integer,box.x2,639
+	integer,box.y2,399
+	integer,box.color,0
+	pointer,box.pointer,box.pointer
+	screen,256
+	back,7
+	for,n,0,12,1,draw,box.pointer,0,0,0
+	doevents
+	eval,i,18*2
+	timer.sleep,i 
+	screen,3	
+function,draw
+	const,0,1,2,7,4,8,10
+	integer,box.pointer,0
+	integer,box.x1,0
+	integer,box.y1,0
+	integer,box.x2,639
+	integer,box.y2,399
+	integer,box.color,0
+	let,box.pointer,argv0
+	add,argv0,argv0,4
+	pointer.from,box.x1,argv0
+	add,argv0,argv0,4
+	pointer.from,box.y1,argv0
+	add,argv0,argv0,4
+	pointer.from,box.x2,argv0
+	add,argv0,argv0,4
+	pointer.from,box.y2,argv0
+	add,argv0,argv0,4
+	pointer.from,box.color,argv0
+	box,box.x1,box.y1,box.x2,box.y2,box.color
+	add,box.color,box.color,7
+	big,box.color,7,clear.color,argv0,box.color,0,0
+	less,box.color,8,set.color,argv0,box.color,0,0
+	add,box.x1,box.x1,10
+	add,box.y1,box.y1,10
+	sub,box.x2,box.x2,10
+	sub,box.y2,box.y2,10
+	let,argv0,box.pointer
+	add,argv0,argv0,4
+	pointer.to,argv0,box.x1
+	add,argv0,argv0,4
+	pointer.to,argv0,box.y1
+	add,argv0,argv0,4
+	pointer.to,argv0,box.x2
+	add,argv0,argv0,4
+	pointer.to,argv0,box.y2
+function,clear.color
+	const,0,1
+	pointer.to,argv0,0
+function,set.color
+	const,0,1
+	pointer.to,argv0,argv1
+
+
+
+
+
+
+
+
