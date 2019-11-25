@@ -1,0 +1,52 @@
+declare,main
+declare,draw
+declare,drawv
+function,main
+	const,0,1,2,12,200,10,639,3,4,7,256,399,20,630
+	integer,i,0
+	integer,n,0
+	integer,hline.pointer,0
+	integer,hline.x1,0
+	integer,hline.y1,0
+	integer,hline.x2,639
+	integer,hline.y2,399
+	integer,hline.color,7
+	pointer,hline.pointer,hline.pointer
+	screen,256
+	back,0
+	for,n,0,399,20,draw,n,hline.pointer,0,0
+	for,n,0,639,20,drawv,n,hline.pointer,0,0
+	doevents
+	eval,i,18*2
+	timer.sleep,i 
+	screen,3	
+function,draw
+	const,0,1,2,7,4,8,10,32,24
+	integer,hline.pointer,0
+	integer,hline.x1,0
+	integer,hline.y1,15
+	integer,hline.x2,639
+	integer,hline.y2,399
+	integer,hline.color,7
+	pointer,argv2,hline.pointer
+	memcopy,argv2,argv1,24
+	hline,hline.x1,argv0,hline.x2,hline.color
+	memcopy,argv1,argv2,24
+function,drawv
+	const,0,1,2,7,4,8,10,32,24
+	integer,hline.pointer,0
+	integer,hline.x1,0
+	integer,hline.y1,15
+	integer,hline.x2,639
+	integer,hline.y2,399
+	integer,hline.color,7
+	pointer,argv2,hline.pointer
+	memcopy,argv2,argv1,24
+	vline,argv0,hline.y1,hline.y2,hline.color
+	memcopy,argv1,argv2,24
+
+
+
+
+
+
