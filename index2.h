@@ -56,10 +56,12 @@ int box();
 int hline();
 int vline();
 int stringlen();
-
+int strs();
 
 //=================================================================
 void readll2(int n){
+
+	if (n==33) strs();
 	if (n==49) stringlen();
 	if (n==71)  screen();
 	if (n==75)  back();
@@ -625,6 +627,45 @@ int stringlen(){
 									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [di],eax");
+
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+int strs(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+										fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+										fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+										addtxtbody("	cs");
+										addtxtbody("	mov edi,[bx]");
+										addtxtbody("	call STR32");
 
 
 		}
