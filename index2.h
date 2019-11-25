@@ -55,15 +55,19 @@ int doevents();
 int box();
 int hline();
 int vline();
+int stringlen();
+
 
 //=================================================================
 void readll2(int n){
+	if (n==49) stringlen();
 	if (n==71)  screen();
 	if (n==75)  back();
 	if (n==76)  hline();
 	if (n==77)  doevents();
 	if (n==78)  box();
 	if (n==85)  vline();
+
 }
 
 //=================================================================
@@ -585,4 +589,47 @@ int vline(){
 
 //=================================================================
 
+
+int stringlen(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov si,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[si]");
+									addtxtbody("	call len32");
+									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],eax");
+
+
+		}
+		return 0;
+}
+
+//=================================================================
 
