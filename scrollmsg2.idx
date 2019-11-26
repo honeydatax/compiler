@@ -1,0 +1,39 @@
+
+declare,main
+declare,rool
+function,main
+	const,0,1,2,16,3,23
+	set,s,hello world hi ther hi ok...
+	integer,x1,0
+	integer,y1,0
+	integer,x2,79
+	integer,y2,24
+	integer,ss2,0
+	integer,ss,0
+	pointer,ss,s
+	string.len,ss2,ss
+	;,clear.screen function
+	screen,3
+	;,clear.screen function
+	locate,0,0,0
+	color,23
+	window.text,x1,y1,x2,y2
+	window.text.clear,x1,y1,x2,y2
+	add,ss2,ss,ss2
+	for,ss,ss,ss2,1,rool,ss,0,0,0
+function,rool
+	const,0,1,2,4,112,115,5,6
+	integer,ss2,0
+	integer,ss,0
+	integer,x1,10
+	integer,y1,6
+	integer,x2,20
+	integer,y2,8
+	color,115
+	locate,0,0,0
+	window.text,x1,5,x2,6
+	window.text.clear,x1,y1,x2,y2
+	window.text,x1,y1,x2,y2
+	window.text.clear,x1,y1,x2,y2
+	window.text.print,x1,y1,x2,y2,argv0
+	timer.sleep,4
