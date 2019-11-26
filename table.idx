@@ -1,0 +1,41 @@
+
+declare,main
+declare,rool
+declare,null.chr
+function,main
+	const,0,1,2,16,3,23,255,115
+	string,s,512
+	integer,screen.x1,0
+	integer,screen.y1,0
+	integer,screen.x2,79
+	integer,screen.y2,24
+	integer,window.x1,3
+	integer,window.y1,3
+	integer,window.x2,19
+	integer,window.y2,19
+	integer,window.ss2,0
+	integer,window.ss,0
+	integer,n,0
+	let,window.ss,s
+	;,clear.screen function
+	screen,3
+	;,clear.screen function
+	locate,0,0,0
+	color,23
+	window.text,screen.x1,screen.y1,screen.x2,screen.y2
+	window.text.clear,screen.x1,screen.y1,screen.x2,screen.y2
+	for,n,0,255,1,rool,window.ss,n,0,0
+	eval,n,n+window.ss
+	pointer.to,n,0	
+	color,115
+	window.text,window.x1,window.y1,window.x2,window.y2
+	window.text.clear,window.x1,window.y1,window.x2,window.y2
+	window.text.print,window.x1,window.y1,window.x2,window.y2,window.ss
+function,rool
+	const,0,1,2,4
+	eval,argv0,argv0+argv1
+	pointer.to,argv0,argv1
+	like,argv1,0,null.chr,argv0,0,0,0
+function,null.chr
+	const,0,1,2,4,32
+	pointer.to,argv0,32
