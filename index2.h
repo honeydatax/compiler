@@ -59,12 +59,14 @@ int stringlen();
 int strs();
 int strcats();
 int strcopys();
+int mempoke();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
 	if (n==23) strcopys();
 	if (n==33) strs();
 	if (n==49) stringlen();
+	if (n==54) mempoke();
 	if (n==71)  screen();
 	if (n==75)  back();
 	if (n==76)  hline();
@@ -769,5 +771,53 @@ int strcopys(){
 }
 
 //=================================================================
+
+//=================================================================
+
+int mempoke(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov al,[bx]");
+									addtxtbody("	mov dx,0");
+									addtxtbody("	mov ds,dx");
+									addtxtbody("	mov [edi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+
+
+		}
+		return 0;
+}
+
+//=================================================================
+
 
 
