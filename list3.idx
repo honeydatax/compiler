@@ -1,0 +1,108 @@
+
+declare,main
+declare,getcolor
+declare,filllist
+declare,filllist2
+declare,shows
+function,main
+	const,0,1,2,16,3,23,255,115,20,33,256,45,240,124,140,144,11,121,110,8,12,132,120
+	const,4000,176,15
+	string,s,5000
+	set,sss,012345678901234567890
+	integer,screen.x1,0
+	integer,screen.y1,0
+	integer,screen.x2,79
+	integer,screen.y2,24
+	integer,window.x1,3
+	integer,window.y1,3
+	integer,window.x2,15
+	integer,window.y2,14
+	integer,window.ss2,0
+	integer,window.ss,0
+	integer,window.color,0
+	integer,p2,0
+	integer,p3,0
+	integer,n,0
+	integer,p1,0
+	integer,black,0
+	integer,blue,1
+	integer,red,4
+	integer,green,2
+	integer,pink,5
+	integer,orange,6
+	integer,cyan,3
+	integer,white,7
+	integer,len,0
+	memfill,s,176,4000
+	pointer,p1,window.color
+	let,window.ss,s
+	string.len,len,window.ss
+	;,clear.screen function
+	screen,3
+	;,clear.screen function
+	locate,0,0,0
+	color,23
+	window.text,screen.x1,screen.y1,screen.x2,screen.y2
+	window.text.clear,screen.x1,screen.y1,screen.x2,screen.y2
+	window.text.print,screen.x1,screen.y1,screen.x2,screen.y2,s
+	getcolor,p1,white,blue,0
+	color,window.color
+	memfill,window.ss,45,132
+	memfill,window.ss,124,120
+	memfill,window.ss,45,12
+	eval,n,window.ss+256
+	mem.poke,n,0
+	window.text,window.x1,window.y1,window.x2,window.y2
+	window.text.clear,window.x1,window.y1,window.x2,window.y2
+	window.text.print,window.x1,window.y1,window.x2,window.y2,window.ss
+	eval,window.x1,window.x1+1
+	eval,window.x2,window.x2-1
+	eval,window.y1,window.y1+1
+	eval,window.y2,window.y2-1
+	let,window.ss,s
+	getcolor,p1,white,cyan,0
+	color,window.color
+	for,n,0,8,1,filllist,n,window.ss,0,0
+	eval,n,9*10+window.ss+1
+	mem.poke,n,0
+	window.text,window.x1,window.y1,window.x2,window.y2
+	window.text.clear,window.x1,window.y1,window.x2,window.y2
+	window.text.print,window.x1,window.y1,window.x2,window.y2,window.ss
+	eval,window.x1,window.x1+20
+	eval,window.x2,window.x2+20
+	for,n,0,16,1,filllist2,n,window.ss,0,0
+	eval,n,17*10+window.ss
+	mem.poke,n,0
+	pointer,p2,window.x1
+	for,n,0,15,1,shows,p2,0,0,0
+function,getcolor
+	const,0,1,2,4
+	integer,i,0
+	eval,i,argv1*16+argv2
+	pointer.to,argv0,i
+function,filllist
+	integer,i,0
+	eval,i,argv0*10+argv1
+	str,i,argv0
+function,filllist2
+	integer,i,0
+	eval,i,(16-argv0)*10+argv1
+	str,i,argv0
+function,shows
+	const,28,0,5
+	integer,i,0
+	integer,window.x1,3
+	integer,window.y1,3
+	integer,window.x2,15
+	integer,window.y2,14
+	integer,window.ss2,0
+	integer,window.ss,0
+	integer,window.color,0
+	pointer,i,window.x1
+	memcopy,i,argv0,28
+	window.text,window.x1,window.y1,window.x2,window.y2
+	window.text.clear,window.x1,window.y1,window.x2,window.y2
+	window.text.print,window.x1,window.y1,window.x2,window.y2,window.ss
+	eval,window.ss,window.ss+10
+	memcopy,argv0,i,28
+	timer.sleep,5
