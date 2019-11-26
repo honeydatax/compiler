@@ -1,0 +1,54 @@
+
+declare,main
+declare,getcolor
+declare,fillchar
+function,main
+	const,0,1,2,16,3,23,255,115,20,33
+	string,s,512
+	integer,screen.x1,0
+	integer,screen.y1,0
+	integer,screen.x2,79
+	integer,screen.y2,24
+	integer,window.x1,3
+	integer,window.y1,3
+	integer,window.x2,19
+	integer,window.y2,19
+	integer,window.ss2,0
+	integer,window.ss,0
+	integer,window.color,0
+	integer,n,0
+	integer,p1,0
+	integer,black,0
+	integer,blue,1
+	integer,red,4
+	integer,green,2
+	integer,orange,5
+	integer,cyan,3
+	integer,white,7
+	pointer,p1,window.color
+	let,window.ss,s
+	;,clear.screen function
+	screen,3
+	;,clear.screen function
+	locate,0,0,0
+	color,23
+	window.text,screen.x1,screen.y1,screen.x2,screen.y2
+	window.text.clear,screen.x1,screen.y1,screen.x2,screen.y2
+	getcolor,p1,white,cyan,0
+	color,window.color
+	let,window.ss,s
+	for,n,0,20,1,fillchar,window.ss,n,33,0
+	eval,n,window.ss+n
+	pointer.to,n,0
+	window.text,window.x1,window.y1,window.x2,window.y2
+	window.text.clear,window.x1,window.y1,window.x2,window.y2
+	window.text.print,window.x1,window.y1,window.x2,window.y2,window.ss
+function,getcolor
+	const,0,1,2,4
+	integer,i,0
+	eval,i,argv1*16+argv2
+	pointer.to,argv0,i
+function,fillchar
+	integer,i,0
+	eval,i,argv0+argv1
+	mem.poke,i,argv2
