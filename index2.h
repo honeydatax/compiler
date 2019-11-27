@@ -62,10 +62,12 @@ int strcopys();
 int mempoke();
 int inputs();
 int mempeek();
+int inputstring();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
 	if (n==23) strcopys();
+	if (n==25) inputstring();
 	if (n==33) strs();
 	if (n==49) stringlen();
 	if (n==54) mempoke();
@@ -871,6 +873,81 @@ int mempeek(){
 //=================================================================
 
 
+//=================================================================
 
 
+int inputstring(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+
+									addtxtbody("	mov bx,L50");
+									addtxtbody("	mov dx,bx");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov cl,[bx]");
+									addtxtbody("	mov bx,dx");
+									addtxtbody("	xor ch,ch");
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],cx");
+									addtxtbody("	mov ah,0xa");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov bx,L50");
+									addtxtbody("	inc bx");
+									addtxtbody("	mov si,bx");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	call MEM32");
+									addtxtbody("	mov esi,eax");
+									addtxtbody("	xor ecx,ecx");
+									addtxtbody("	cs");
+									addtxtbody("	mov cl,[bx]");
+									addtxtbody("	push ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	inc esi");
+									addtxtbody("	mov edx,1");
+									addtxtbody("	call COPYMEM32");
+									addtxtbody("	pop ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	mov al,0");
+									addtxtbody("	add esi,ecx");
+									addtxtbody("	mov [esi],al");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+
+
+
+
+		}
+		return 0;
+}
+
+//=================================================================
 
