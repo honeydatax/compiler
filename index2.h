@@ -63,12 +63,14 @@ int mempoke();
 int inputs();
 int mempeek();
 int inputstring();
+int vals();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
 	if (n==23) strcopys();
 	if (n==25) inputstring();
 	if (n==33) strs();
+	if (n==34) vals();
 	if (n==49) stringlen();
 	if (n==54) mempoke();
 	if (n==53) mempeek();
@@ -951,3 +953,45 @@ int inputstring(){
 
 //=================================================================
 
+int vals(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	int i5;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov di,bx");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	call val");
+
+
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
