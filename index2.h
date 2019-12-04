@@ -68,6 +68,7 @@ int floatconsts();
 void addkey(char *sss,int func);
 void addvar(char *sss);
 char *uppercase(char *s);
+int doubleconsts();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -85,6 +86,7 @@ void readll2(int n){
 	if (n==78) box();
 	if (n==85) vline();
 	if (n==120) floatconsts();
+	if (n==121) doubleconsts();
 }
 
 //=================================================================
@@ -186,6 +188,7 @@ void addkey(char *sss,int func){
 void addkeys2(){
 ;
 	addkey ("float.const",2); //120
+	addkey ("double.const",2); //121
 }
 
 //=================================================================
@@ -1068,3 +1071,35 @@ int floatconsts(){
 }
 
 //=================================================================
+
+int doubleconsts(){
+	int i;
+	int n;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dff=0.00;
+	if(paramets[69]<=count){
+		error=0;
+		for (n=0;n<count-1;n++){
+			ss1=uppercase(ss[n+1]);
+			i=findvar(ss1);
+			if (i==-1){
+				addvar (ss1);
+				i=findvar(ss1);
+			}else{
+				printf("var:%s\n",ss1);
+				error=1;
+			}
+			dff=atof(ss1);
+			dff=dff*10000;
+			l=(long) dff;
+			fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+			varnext++;
+		}
+	}
+	return 0;
+}
+
+//=================================================================
+
