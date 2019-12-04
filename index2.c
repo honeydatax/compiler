@@ -13,14 +13,11 @@ void tail();
 void body(int c);
 void pprint(int n);
 void addcode(char *s1);
-char *uppercase(char *s);
-void addkey(char *sss,int func);
 int findkey(char *s);
 int echos();
 void addtxtbody(char *s);
 void addtxtbodynx(char *s);
 void addtxtbodynb(int n);
-void addvar(char *sss);
 int declair(char *s);
 int iinteger(char *s);
 int function(char *s);
@@ -2682,23 +2679,6 @@ void addcode(char *s1){
 	fprintf(f1,"%s\n",s1);
 }
 //=================================================================
-//addkey
-void addkey(char *sss,int func){
-	int i;
-	char *ss;
-	subs[subcursor]=s+cursor;
-	strcpy(subs[subcursor],sss);
-	ss=uppercase(subs[subcursor]);
-	i=strlen(ss)+2;
-	subs[subcursor]=ss;
-	//printf("t%d,%s,%d\n",subcursor,subs[subcursor],func);
-	paramets[subcursor]=func;
-	cursor=cursor+((long) i);
-	subcursor++;
-	
-}
-
-//=================================================================
 //findkey
 int findkey(char *s){
 	int n;
@@ -2726,22 +2706,6 @@ void addtxtbodynb(int n){
 	fprintf(f2,"%d",n);
 }
 //=================================================================
-//addkey
-void addvar(char *sss){
-	int i;
-	char *ss1;
-	var[varcursor]=s+cursor;
-	strcpy(var[varcursor],sss);
-	ss1=uppercase(var[varcursor]);
-	i=strlen(ss1)+2;
-	var[varcursor]=ss1;
-	cursor=cursor+((long) i);
-	varcursor++;
-	
-}
-
-
-
 //=================================================================
 //declair
 int declair(char *s){
@@ -5615,6 +5579,7 @@ void emain(char *argv){
 	char aargvs[1000];
 	char *aargvss=aargvs;
 	char *argvss;
+	char *argvssr;
 	int vc=0;
 	argvss=argvs;
 	strcpy(argvss,"");
@@ -5623,7 +5588,13 @@ void emain(char *argv){
 	strcpy(aargvss,"(");
 	strcat(aargvss,argvss);
 	strcat(aargvss,"+0)");
-	params(aargvss);
+	argvssr=strstr(aargvss,".");
+	if (argvssr!=NULL){
+		error=1;
+		printf("eval dont suport vars id . \n");
+	}else{
+		params(aargvss);
+	}
 
 }
 

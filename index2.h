@@ -64,6 +64,10 @@ int inputs();
 int mempeek();
 int inputstring();
 int vals();
+int floatconsts();
+void addkey(char *sss,int func);
+void addvar(char *sss);
+char *uppercase(char *s);
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -80,7 +84,7 @@ void readll2(int n){
 	if (n==77) doevents();
 	if (n==78) box();
 	if (n==85) vline();
-
+	if (n==120) floatconsts();
 }
 
 //=================================================================
@@ -93,6 +97,26 @@ void readll2(int n){
 void addtxtbody(char *s){
 	fprintf(f2,"%s\n",s);
 }
+
+
+//=================================================================
+//addkey
+void addvar(char *sss){
+	int i;
+	char *ss1;
+	var[varcursor]=s+cursor;
+	strcpy(var[varcursor],sss);
+	ss1=uppercase(var[varcursor]);
+	i=strlen(ss1)+2;
+	var[varcursor]=ss1;
+	cursor=cursor+((long) i);
+	varcursor++;
+	
+}
+
+
+
+//=================================================================
 
 
 //=================================================================
@@ -138,10 +162,30 @@ char *uppercase(char *s){
 
 	return r;
 }
+//=================================================================
+
+//addkey
+void addkey(char *sss,int func){
+	int i;
+	char *ss;
+	subs[subcursor]=s+cursor;
+	strcpy(subs[subcursor],sss);
+	ss=uppercase(subs[subcursor]);
+	i=strlen(ss)+2;
+	subs[subcursor]=ss;
+	//printf("t%d,%s,%d\n",subcursor,subs[subcursor],func);
+	paramets[subcursor]=func;
+	cursor=cursor+((long) i);
+	subcursor++;
+	
+}
+
+//=================================================================
 
 
 void addkeys2(){
 ;
+	addkey ("float.const",2); //120
 }
 
 //=================================================================
@@ -993,5 +1037,34 @@ int vals(){
 }
 
 //=================================================================
+
+int floatconsts(){
+	int i;
+	int n;
+	char *ss1;
+	char *ss2;
+	long l;
+	double dff=0.00;
+	if(paramets[69]<=count){
+		error=0;
+		for (n=0;n<count-1;n++){
+			ss1=uppercase(ss[n+1]);
+			i=findvar(ss1);
+			if (i==-1){
+				addvar (ss1);
+				i=findvar(ss1);
+			}else{
+				printf("var:%s\n",ss1);
+				error=1;
+			}
+			dff=atof(ss1);
+			dff=dff*100;
+			l=(long) dff;
+			fprintf(f1,"varnext%d dd %lu\n",varnext,l);
+			varnext++;
+		}
+	}
+	return 0;
+}
 
 //=================================================================
