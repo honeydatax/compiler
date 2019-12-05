@@ -1,0 +1,61 @@
+declare,main
+declare,lists
+declare,exitwhile
+declare,while1
+function,main
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3,4,5,6,7,8,9,10
+
+	;,code
+	lists,0,0,0,0
+function,lists
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3,4,5,6,7,8,9,10,112,79,24,14
+	integer,t,0
+	integer,n,0
+	integer,counter,0
+
+
+	;,code
+	pointer,t,n
+	color,112
+	window.text,0,0,79,24
+	window.text.clear,0,0,79,24
+	color,7
+	window.text,2,2,14,3
+	while,n,1,while1,t,0,0,0
+function,exitwhile
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1
+	pointer.to,argv0,1
+function,while1
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3,27,8
+	integer,n,0
+	integer,counter,0
+	integer,key,0
+
+	;,code
+	pointer,argv2,n
+	memcopy,argv2,argv0,8
+	locate,2,2,0
+	printnumber,counter
+	eval,counter,counter+1	
+	memcopy,argv0,argv2,8
+	timer.sleep,27
+	inkey,key
+	like,key,27,exitwhile,argv0,0,0,0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
