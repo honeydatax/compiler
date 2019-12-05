@@ -258,7 +258,7 @@ int back(){
 									addtxtbody("	cs");
 									addtxtbody("	mov al,[bx]");
 									addtxtbody("	mov edi,140000h") ;
-									addtxtbody("	mov ecx,1ffffh") ;
+									addtxtbody("	mov ecx,64000") ;
 									addtxtbody("	push ds");
 									addtxtbody("	push es");
 									addtxtbody("	mov edx,0");
