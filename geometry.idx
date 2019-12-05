@@ -1,0 +1,67 @@
+declare,main
+declare,drawrect
+function,main
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,8,1,2,3,64,256
+	integer,rectpoint,0
+	integer,rectx,10
+	integer,recty,10
+	integer,rectw,4
+	integer,recth,4
+	integer,rectcolor,17
+	integer,rectn,0
+
+	;,code
+	pointer,rectpoint,rectpoint
+	screen,256
+	back,0
+		for,rectn,0,8,1,drawrect,rectpoint,rectn,0,0
+	doevents
+	timer.sleep,64
+	screen,3
+function,drawrect
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,8,1,28,64,15
+	integer,rectpoint,0
+	integer,rectx,0
+	integer,recty,0
+	integer,rectw,0
+	integer,recth,0
+	integer,rectcolor,0
+	integer,rectn,0
+	integer,rectx2,0
+	integer,recty2,0
+
+	;,code
+	pointer,argv2,rectpoint
+	memcopy,argv2,argv0,28
+	eval,rectx2,rectx+rectw
+	eval,recty2,recty+recth
+	hline,rectx,recty,rectx2,rectcolor
+	vline,rectx2,recty,recty2,rectcolor
+	hline,rectx,recty2,rectx2,rectcolor
+	vline,rectx,recty,recty2,rectcolor
+	eval,rectcolor,rectcolor+1
+	eval,rectw,rectw*2
+	eval,recth,recth*2
+	memcopy,argv0,argv2,28	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
