@@ -1,0 +1,60 @@
+declare,main
+declare,drawx
+declare,drawy
+function,main
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,256,0,1,2,3,7,32,48
+	integer,rectpoint,0
+	integer,rectn,0
+	integer,rectm,0
+	integer,recti,0
+	integer,rectx1,0
+	integer,recty1,0
+	integer,rectx2,0
+	integer,recty2,0
+	integer,rectcolor,15
+	pointer,rectpoint,rectpoint
+
+	screen,256
+	back,0
+		for,rectm,0,7,1,drawx,rectpoint,0,0,0
+	doevents
+	timer.sleep,48
+	screen,3
+function,drawx
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,256,0,1,2,3,7,6,32,36
+	integer,rectpoint,0
+	integer,rectn,0
+	integer,rectm,0
+	integer,recti,0
+	integer,rectx1,0
+	integer,recty1,0
+	integer,rectx2,0
+	integer,recty2,0
+	integer,rectcolor,0
+	pointer,argv1,rectpoint
+	memcopy,argv1,argv0,36
+		for,rectn,0,7,2,drawy,argv1,0,0,0
+	add,rectm,rectm,1
+		for,rectn,1,7,2,drawy,argv1,0,0,0
+	memcopy,argv0,argv1,36
+function,drawy
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,256,0,1,2,3,7,6,25,80,32,36,15,100,50
+	integer,rectpoint,0
+	integer,rectn,0
+	integer,rectm,0
+	integer,recti,0
+	integer,rectx1,0
+	integer,recty1,0
+	integer,rectx2,0
+	integer,recty2,0
+	integer,rectcolor,0
+	pointer,argv1,rectpoint
+	memcopy,argv1,argv0,36
+	mul,rectx1,rectn,80
+	mul,recty1,rectm,50
+	add,rectx2,rectx1,80
+	add,recty2,recty1,50
+	box,rectx1,recty1,rectx2,recty2,rectcolor
