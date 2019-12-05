@@ -1,0 +1,44 @@
+declare,main
+function,main
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3,6,256,64,4000,15,112,65
+	string,s,4002
+	integer,screens,753664
+
+	;,code
+	memcopy,s,screens,4000
+	screen,256
+	back,15
+	doevents
+	color,15
+	locate,2,2,0
+	echo, graphic screen 
+	timer.sleep,64
+	screen,3
+	memcopy,screens,s,4000
+	locate,2,2,0
+	echo, text screen 
+	timer.sleep,64
+	screen,256
+	doevents
+	locate,2,2,0
+	echo, graphic screen 
+	timer.sleep,64
+	screen,3
+	memcopy,screens,s,4000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
