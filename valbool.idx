@@ -1,0 +1,35 @@
+declare,init
+declare,printtrue
+declare,printfalse
+function,init
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3,100
+	integer,result1,0
+	integer,result2,0
+	;,change a1 to a2 values 
+	integer,false,0
+	integer,true,1
+	integer,a1,0
+
+	let,a1,0
+
+	;,code
+	;,convert from 0 to 0 other =1
+	(boolean),result1,a1
+	like,result1,1,printtrue,0,0,0,0
+	like,result1,0,printfalse,0,0,0,0
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+function,printtrue
+	const,0,1,2
+
+	;,code
+	locate,0,0,0
+	echo,TRUE - output
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+function,printfalse
+	const,0,1,2
+
+	;,code
+	locate,0,0,0
+	echo,FALSE - output
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
