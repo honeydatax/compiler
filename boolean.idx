@@ -1,0 +1,37 @@
+declare,init
+declare,printtrue
+declare,printfalse
+function,init
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3
+	integer,result1,0
+	integer,result2,0
+	;,change a1 to a4 values 
+	integer,a1,100
+	integer,a2,100
+	integer,a3,100
+	integer,a4,100
+
+	;,code
+	boolean.like,result1,a1,a2
+	boolean.like,result2,a1,a3
+	bits.and,result1,result1,result2
+	boolean.like,result2,a1,a4
+	bits.and,result1,result1,result2
+	like,result1,1,printtrue,0,0,0,0
+	like,result1,0,printfalse,0,0,0,0
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+function,printtrue
+	const,0,1,2
+
+	;,code
+	locate,0,0,0
+	echo,TRUE - the elements are equal
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+function,printfalse
+	const,0,1,2
+
+	;,code
+	locate,0,0,0
+	echo,FALSE - the elements are not equal
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
