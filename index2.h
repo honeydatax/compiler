@@ -70,6 +70,8 @@ void addvar(char *sss);
 char *uppercase(char *s);
 int doubleconsts();
 int booleanlike();
+int booleandiferent();
+int ors();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -89,6 +91,8 @@ void readll2(int n){
 	if (n==120) floatconsts();
 	if (n==121) doubleconsts();
 	if (n==122) booleanlike();
+	if (n==123) booleandiferent();
+	if (n==124) ors();
 }
 
 //=================================================================
@@ -192,6 +196,8 @@ void addkeys2(){
 	addkey ("float.const",2); //120
 	addkey ("double.const",2); //121
 	addkey ("boolean.like",4); //122
+	addkey ("boolean.diferent",4); //123
+	addkey ("bits.or",4); //124
 }
 
 //=================================================================
@@ -1151,6 +1157,108 @@ int booleanlike(){
 									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],edx");
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+//=================================================================
+
+int booleandiferent(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	mov edx,0");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz linenumber%d\n",lineno);
+									addtxtbody("	mov edx,1");
+									fprintf(f2,"	linenumber%d:\n",lineno);
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+
+		}
+		return 0;
+}
+
+//=================================================================
+
+int ors(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	or eax,ecx");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],eax");
 
 		}
 		return 0;
