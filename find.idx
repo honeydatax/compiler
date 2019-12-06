@@ -1,0 +1,58 @@
+declare,sub1
+declare,finder1
+declare,printfind
+function,sub1
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	const,0,1,2,3
+	integer,s1,0
+	integer,char1,119
+	integer,logic,0
+	set,s,hello world hi there.!
+
+	;,code
+	pointer,s1,s
+	pointer,argv0,s1
+	locate,0,0,0
+	print,s1
+		while,logic,1,finder1,argv0,0,0,0
+
+	;,xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx	
+function,finder1
+	const,0,1,2,3,4,5,255,12,8
+	integer,s1,0
+	integer,char1,0
+	integer,logic,0
+	integer,a1,0
+	integer,a2,0
+	integer,a3,0
+
+	;,code
+	pointer,argv3,s1
+	memcopy,argv3,argv0,12
+	pointer.from,a1,s1
+	bits.and,a1,a1,255
+		like,a1,char1,printfind,s1,argv0,0,0
+		like,a1,0,printfind,s1,argv0,0,0
+	eval,s1,s1+1
+	memcopy,argv0,argv3,8
+function,printfind
+	const,0,1,2,3,4,5,255
+	locate,2,2,0
+	print,argv0
+	eval,argv1,argv1+8
+	pointer.to,argv1,1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
