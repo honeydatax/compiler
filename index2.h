@@ -77,6 +77,10 @@ int booleanless();
 int notss();
 int bbooleanb();
 int filecreat();
+int fileopen();
+int fileclose();
+int filewrite();
+int fileread();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -85,6 +89,10 @@ void readll2(int n){
 	if (n==33) strs();
 	if (n==34) vals();
 	if (n==44) filecreat();
+	if (n==45) fileopen();
+	if (n==46) fileclose();
+	if (n==47) fileread();
+	if (n==48) filewrite();
 	if (n==49) stringlen();
 	if (n==54) mempoke();
 	if (n==53) mempeek();
@@ -1507,8 +1515,203 @@ int filecreat(){
 
 //=================================================================
 
+//=================================================================
+
+int fileopen(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(3==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
 
 
+									fprintf(f2,"	mov dx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	xor edx,edx");
+									addtxtbody("	mov dx,ax");
+									addtxtbody("	mov [bx],edx");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int fileclose(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov bx,ax");
+									addtxtbody("	mov al,2");
+									addtxtbody("	mov ah,0x3e");
+									addtxtbody("	int 0x21");
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+int filewrite(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ecx,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov di,ax");
+									addtxtbody("	call WRITE32");
+
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+int fileread(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	mov ecx,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov di,ax");
+									addtxtbody("	call READ32");
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
 
 
