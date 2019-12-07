@@ -76,6 +76,7 @@ int booleanbig();
 int booleanless();
 int notss();
 int bbooleanb();
+int filecreat();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -83,6 +84,7 @@ void readll2(int n){
 	if (n==25) inputstring();
 	if (n==33) strs();
 	if (n==34) vals();
+	if (n==44) filecreat();
 	if (n==49) stringlen();
 	if (n==54) mempoke();
 	if (n==53) mempeek();
@@ -1466,4 +1468,57 @@ int bbooleanb(){
 		}
 		return 0;
 }
+
+
+//=================================================================
+
+int filecreat(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3c");
+									addtxtbody("	mov cx,0");
+									addtxtbody("	int 0x21");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
