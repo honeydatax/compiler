@@ -1,0 +1,20 @@
+declare,sub1
+function,sub1
+	const,0,1,2,3
+	integer,n,0
+	integer,file1,0
+	integer,p1,0
+	integer,count,0
+	set,s,new.txt
+	set,ss,bob..........100.
+	pointer,p1,ss
+	string.len,count,p1
+	eval,count,count+1
+
+	file.creat,s
+	file.open,file1,s
+	file.write,p1,file1,count
+	file.close,p1
+	screen,3
+	locate,0,0,0
+	printnumber,file1

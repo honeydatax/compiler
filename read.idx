@@ -1,0 +1,16 @@
+declare,sub1
+function,sub1
+	const,0,1,2,3
+	integer,n,0
+	integer,file1,0
+	integer,p1,0
+	integer,count,18
+	string,s1,100
+	set,s,new.txt
+
+	file.open,file1,s
+	file.read,s1,file1,count
+	file.close,p1
+	screen,3
+	locate,0,0,0
+	print,s1
