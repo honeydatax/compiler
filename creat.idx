@@ -1,0 +1,6 @@
+declare,sub1
+function,sub1
+	const,0,1,2,3
+	integer,n,0
+	set,s,new.txt
+	file.creat,s
