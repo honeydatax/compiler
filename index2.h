@@ -81,6 +81,9 @@ int fileopen();
 int fileclose();
 int filewrite();
 int fileread();
+int nosound();
+int sound();
+int beeps();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -103,6 +106,9 @@ void readll2(int n){
 	if (n==77) doevents();
 	if (n==78) box();
 	if (n==85) vline();
+	if (n==86) nosound();
+	if (n==87) sound();
+	if (n==88) beeps();
 	if (n==120) floatconsts();
 	if (n==121) doubleconsts();
 	if (n==122) booleanlike();
@@ -1725,3 +1731,100 @@ int fileread(){
 
 
 
+//=================================================================
+
+int nosound(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+
+
+
+									addtxtbody("	call nosound");
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+//=================================================================
+
+int sound(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	call sound");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+//=================================================================
+
+//=================================================================
+
+int beeps(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+
+
+
+									addtxtbody("	mov eax,750");
+									addtxtbody("	call sound");
+									addtxtbody("	mov eax,8");
+									addtxtbody("	call sleep");
+									addtxtbody("	call nosound");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
