@@ -1,0 +1,11 @@
+declare,main
+function,main
+	const,0,1,2,3
+	integer,i,0
+	set,s,HELLO WORLD.!
+	pointer,i,s
+	locate,0,0,0
+	print,i
+	string.lower,i
+	locate,0,1,0
+	print,i
