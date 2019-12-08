@@ -84,6 +84,7 @@ int fileread();
 int nosound();
 int sound();
 int beeps();
+int stringlow();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -100,6 +101,7 @@ void readll2(int n){
 	if (n==54) mempoke();
 	if (n==53) mempeek();
 	if (n==56) notss();
+	if (n==62) stringlow();
 	if (n==71) screen();
 	if (n==75) back();
 	if (n==76) hline();
@@ -1818,6 +1820,58 @@ int beeps(){
 									addtxtbody("	mov eax,8");
 									addtxtbody("	call sleep");
 									addtxtbody("	call nosound");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+//=================================================================
+
+int stringlow(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlower");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+
+
 
 
 
