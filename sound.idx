@@ -1,0 +1,19 @@
+declare,subs1
+function,subs1
+	const,0,1,2,3,1500,1600,1400,1300,1200,1100,1000,19
+	integer,i,0
+	sound,1600
+	timer.sleep,19
+	sound,1500
+	timer.sleep,19
+	sound,1400
+	timer.sleep,19
+	sound,1300
+	timer.sleep,19
+	sound,1200
+	timer.sleep,19
+	sound,1100
+	timer.sleep,19
+	sound,1000
+	timer.sleep,19
+	nosound
