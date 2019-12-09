@@ -91,6 +91,7 @@ int stringcmp();
 int findstr();
 int mouseshow();
 int mousehide();
+int mousebutton();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -131,6 +132,8 @@ void readll2(int n){
 	if (n==127) bbooleanb();
 	if (n==128) mouseshow();
 	if (n==129) mousehide();
+	if (n==130) mousebutton();
+
 }
 
 //=================================================================
@@ -241,6 +244,7 @@ void addkeys2(){
 	addkey ("(boolean)",3); //127
 	addkey ("mouse.show",1); //128
 	addkey ("mouse.hide",1); //129
+	addkey ("mouse.button",4); //130
 }
 
 //=================================================================
@@ -2218,6 +2222,67 @@ int mousehide(){
 
 									addtxtbody("	mov ax,2");
 									addtxtbody("	int 0x33");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+//=================================================================
+
+int mousebutton(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+									addtxtbody("	mov eax,3");
+									addtxtbody("	mov ebx,eax");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov edx,eax");
+									addtxtbody("	int 0x33");
+									fprintf(f2,"	mov di,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],ecx");
+									fprintf(f2,"	mov di,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],edx");
+									fprintf(f2,"	mov di,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [di],ebx");
 
 
 
