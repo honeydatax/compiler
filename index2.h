@@ -89,6 +89,8 @@ int stringhigh();
 int findchar();
 int stringcmp();
 int findstr();
+int mouseshow();
+int mousehide();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -127,6 +129,8 @@ void readll2(int n){
 	if (n==125) booleanbig();
 	if (n==126) booleanless();
 	if (n==127) bbooleanb();
+	if (n==128) mouseshow();
+	if (n==129) mousehide();
 }
 
 //=================================================================
@@ -235,6 +239,8 @@ void addkeys2(){
 	addkey ("boolean.big",4); //125
 	addkey ("boolean.less",4); //126
 	addkey ("(boolean)",3); //127
+	addkey ("mouse.show",1); //128
+	addkey ("mouse.hide",1); //129
 }
 
 //=================================================================
@@ -2168,3 +2174,57 @@ int findstr(){
 
 //=================================================================
 
+//=================================================================
+
+int mouseshow(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+
+
+
+									addtxtbody("	mov ax,1");
+									addtxtbody("	int 0x33");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+int mousehide(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(1==count){
+
+		error=0;
+
+
+
+									addtxtbody("	mov ax,2");
+									addtxtbody("	int 0x33");
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
