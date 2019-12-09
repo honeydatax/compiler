@@ -87,6 +87,7 @@ int beeps();
 int stringlow();
 int stringhigh();
 int findchar();
+int stringcmp();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -103,6 +104,7 @@ void readll2(int n){
 	if (n==54) mempoke();
 	if (n==53) mempeek();
 	if (n==56) notss();
+	if (n==61) stringcmp();
 	if (n==62) stringlow();
 	if (n==63) stringhigh();
 	if (n==65) findchar();
@@ -2008,6 +2010,83 @@ int findchar(){
 									addtxtbody("	cs");
 									addtxtbody("	mov [bx],ecx");
 
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+//=================================================================
+
+int stringcmp(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	call memlen");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	call comps");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],ecx");
 
 
 
