@@ -88,6 +88,7 @@ int stringlow();
 int stringhigh();
 int findchar();
 int stringcmp();
+int findstr();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -108,6 +109,7 @@ void readll2(int n){
 	if (n==62) stringlow();
 	if (n==63) stringhigh();
 	if (n==65) findchar();
+	if (n==67) findstr();
 	if (n==71) screen();
 	if (n==75) back();
 	if (n==76) hline();
@@ -2098,4 +2100,71 @@ int stringcmp(){
 
 //=================================================================
 
+
+//=================================================================
+
+int findstr(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(4==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[2]);
+		i2=findvar(ss1);
+		if (i2==-1){
+			printf("error var2\n");
+			error=1;
+		}
+
+		ss1=uppercase(ss[3]);
+		i3=findvar(ss1);
+		if (i3==-1){
+			printf("error var3\n");
+			error=1;
+		}
+
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i2+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov esi,[bx]");
+									fprintf(f2,"	mov bx,varnext%d\n",i3+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov edi,[bx]");
+									addtxtbody("	mov bp,0");
+									addtxtbody("	mov es,bp");
+									addtxtbody("	mov ds,bp");
+									addtxtbody("	call findstr");
+									addtxtbody("	mov ecx,eax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ds,ax");
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],ecx");
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
