@@ -1,0 +1,18 @@
+declare,subs1
+function,subs1
+	const,0,1,2,3,4
+	integer,p1,0
+	integer,p2,0
+	integer,c1,33
+	integer,value,0
+	set,s,hello world.!
+	set,ss,world
+	pointer,p1,s
+	pointer,p2,ss
+	locate,0,0,0
+	print,p1
+	locate,0,1,0
+	print,p2
+	string.findstr,value,p1,p2
+	locate,0,2,0
+	printnumber,value
