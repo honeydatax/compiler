@@ -1,0 +1,75 @@
+
+declare,main
+declare,loop1
+declare,loop2
+declare,loop3
+declare,exitss
+function,main
+	const,0,1,2,112,3
+	set,s,hello world hi ther hi ok...
+	integer,n,0
+	integer,p1,0
+	integer,ss,0
+	pointer,ss,s
+	integer,x1,10
+	integer,y1,6
+	integer,x2,15
+	integer,y2,20
+	color,112
+	locate,0,0,0
+	screen,3
+	window.text,x1,y1,x2,y2
+	window.text.print,x1,y1,x2,y2,ss
+	pointer,p1,n
+	mouse.show
+	while,n,1,loop1,p1,0,0,0
+	mouse.hide
+function,loop1
+	const,0,1,2,112,3,27,65535
+	integer,x,0
+	integer,y,0
+	integer,key,0
+	mouse.button,x,y,key
+	bits.and,key,key,65535
+	like,key,1,loop2,argv0,0,0,0
+function,loop2
+	const,0,1,2,112,3,27,65535,10,11
+	integer,x1,10
+	integer,y1,6
+	integer,x2,15
+	integer,y2,20
+	integer,i,0
+	integer,x,0
+	integer,y,0
+	integer,key,0
+	mouse.button,x,y,key
+	bits.and,x,x,65535
+	bits.and,y,y,65535
+	eval,x,x/8
+	eval,y,y/8
+	inside.box,x1,x,exitss,argv0,0,0,0
+function,exitss
+	const,0,1,2
+	pointer.to,argv0,1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
