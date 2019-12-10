@@ -2679,19 +2679,6 @@ void addcode(char *s1){
 	fprintf(f1,"%s\n",s1);
 }
 //=================================================================
-//findkey
-int findkey(char *s){
-	int n;
-	int i=-1;
-	for (n=0;n<subcursor;n++){
-		if(strcmp(s,subs[n])==0){
-			i=n;
-			n=subcursor+1;
-		}
-		
-	}
-	return i;
-}
 
 //=================================================================
 
