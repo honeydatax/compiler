@@ -94,6 +94,7 @@ int mouseshow();
 int mousehide();
 int mousebutton();
 int insidebox();
+int filechain();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -120,6 +121,7 @@ void readll2(int n){
 	if (n==76) hline();
 	if (n==77) doevents();
 	if (n==78) box();
+	if (n==79) filechain();
 	if (n==85) vline();
 	if (n==86) nosound();
 	if (n==87) sound();
@@ -2455,6 +2457,67 @@ int insidebox(){
 //=================================================================
 
 
+//=================================================================
+
+int filechain(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+									addtxtbody("	mov ax,0xffff");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	push ax");
+									addtxtbody("	mov ax,0x100");
+									addtxtbody("	mov ax,0x80");
+									addtxtbody("	mov di,0x80");
+									addtxtbody("	mov si,chain");
+									addtxtbody("	mov ecx,0x70");
+									fprintf(f2,"mainloop%d:\n",lineno);
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	mov [di],ax");
+									addtxtbody("	inc si");
+									addtxtbody("	inc di");
+									addtxtbody("	dec cx");
+									addtxtbody("	cmp cx,0");
+									fprintf(f2,"jnz mainloop%d\n",lineno);
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	jc LJMP%d\n",lineno);
+									addtxtbody("	mov bx,0xfa");
+									addtxtbody("	mov [bx],ax");
+									addtxtbody("	mov ax,0x80");
+									addtxtbody("	jmp ax");
+									fprintf(f2,"	LJMP%d:\n",lineno);
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
 
 
