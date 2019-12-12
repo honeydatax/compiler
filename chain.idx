@@ -1,0 +1,8 @@
+declare,main
+function,main
+	const,0,1,2,3
+	set,s,echos.com
+	locate,0,0,0
+	file.chain,s
+	locate,0,0,0
+	echo,error load file
