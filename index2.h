@@ -95,6 +95,7 @@ int mousehide();
 int mousebutton();
 int insidebox();
 int filechain();
+int fileexec();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -122,6 +123,7 @@ void readll2(int n){
 	if (n==77) doevents();
 	if (n==78) box();
 	if (n==79) filechain();
+	if (n==80) fileexec();
 	if (n==85) vline();
 	if (n==86) nosound();
 	if (n==87) sound();
@@ -2507,6 +2509,117 @@ int filechain(){
 									addtxtbody("	mov ax,0x80");
 									addtxtbody("	jmp ax");
 									fprintf(f2,"	LJMP%d:\n",lineno);
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+int fileexec(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+
+
+									addtxtbody("	mov ax,0xffff");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov ax,0");
+									addtxtbody("	push ax");
+									fprintf(f2,"	mov dx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	mov ah,0x3d");
+									addtxtbody("	mov al,2");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"	jc LJMP%d\n",lineno);
+									addtxtbody("	mov si,ax");
+									fprintf(f2,"	jmp LJMPS%d\n",lineno);
+									fprintf(f2,"LJMP%d:\n",lineno);
+									addtxtbody("	xor ax,ax");
+									addtxtbody("	int 0x21");
+									fprintf(f2,"LJMPS%d:\n",lineno);
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov bx,0x1000");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov dx,0x0");
+									addtxtbody("	mov cx,65530");
+									addtxtbody("	mov bx,si");
+									addtxtbody("	mov ah,0x3f");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov bx,si");
+									addtxtbody("	mov al,2");
+									addtxtbody("	mov ah,0x3e");
+									addtxtbody("	int 0x21");
+									addtxtbody("	mov ax,ds");
+									addtxtbody("	mov dx,16");
+									addtxtbody("	add dx,ax");
+									addtxtbody("	mov bx,0x0e");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	add ax,dx");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ss,ax");
+									addtxtbody("	mov bx,0x10");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov sp,ax");
+									addtxtbody("	mov bx,0x16");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	mov bx,16");
+									addtxtbody("	add ax,dx");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	push ax");
+									addtxtbody("	mov bx,0x14");
+									addtxtbody("	mov ax,[bx]");
+									addtxtbody("	push ax");
+									addtxtbody("	mov ax,ds");
+									addtxtbody("	mov bx,16");
+									addtxtbody("	add ax,bx");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov cx,0x80");
+									addtxtbody("	mov si,0");
+									addtxtbody("	mov di,si");
+									fprintf(f2,"mainloop%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ax,[si]");
+									addtxtbody("	es");
+									addtxtbody("	mov [di],ax");
+									addtxtbody("	inc si");
+									addtxtbody("	inc di");
+									addtxtbody("	dec cx");
+									addtxtbody("	cmp cx,0");
+									fprintf(f2,"jnz mainloop%d\n",lineno);
+									addtxtbody("	mov ax,es");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov cx,0xf000");
+									addtxtbody("	retf");
+									addtxtbody("	ret");
 
 
 
