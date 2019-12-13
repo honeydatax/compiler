@@ -1,0 +1,8 @@
+declare,sub1
+function,sub1
+	const,700,0,1,2
+	integer,i,10000
+	eval,i,i*18*5
+	sound,700
+	timer.cicle,i
+	nosound
