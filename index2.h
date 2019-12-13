@@ -96,6 +96,7 @@ int mousebutton();
 int insidebox();
 int filechain();
 int fileexec();
+int timercicle();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -124,6 +125,7 @@ void readll2(int n){
 	if (n==78) box();
 	if (n==79) filechain();
 	if (n==80) fileexec();
+	if (n==81) timercicle();
 	if (n==85) vline();
 	if (n==86) nosound();
 	if (n==87) sound();
@@ -2631,6 +2633,60 @@ int fileexec(){
 
 
 //=================================================================
+
+//=================================================================
+
+int timercicle(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	call cicle");
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
