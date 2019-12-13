@@ -97,6 +97,7 @@ int insidebox();
 int filechain();
 int fileexec();
 int timercicle();
+int timercount();
 //=================================================================
 void readll2(int n){
 	if (n==22) strcats();
@@ -142,6 +143,7 @@ void readll2(int n){
 	if (n==129) mousehide();
 	if (n==130) mousebutton();
 	if (n==131) insidebox();
+	if (n==132) timercount();
 
 }
 
@@ -270,7 +272,8 @@ void addkeys2(){
 	addkey ("mouse.show",1); //128
 	addkey ("mouse.hide",1); //129
 	addkey ("mouse.button",4); //130
-	addkey ("inside.box",8); //130
+	addkey ("inside.box",8); //131
+	addkey ("timer.count",2); //132
 }
 
 //=================================================================
@@ -2674,6 +2677,72 @@ int timercicle(){
 
 //=================================================================
 
+
+
+//=================================================================
+
+int timercount(){
+	int i;
+	int i1;
+	int i2;
+	int i3;
+	int i4;
+	char *ss1;
+	if(2==count){
+
+		error=0;
+
+		ss1=uppercase(ss[1]);
+		i1=findvar(ss1);
+		if (i1==-1){
+			printf("error var1\n");
+			error=1;
+		}
+
+
+
+
+
+
+									addtxtbody("	mov eax,0x40");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+									addtxtbody("	mov bx,0x6c");
+									addtxtbody("	ds");
+									addtxtbody("	mov eax,[bx]");
+									fprintf(f2,"LLLA%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz LLLA%d\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov eax,[bx]");
+									addtxtbody("	mov edx,0");
+									fprintf(f2,"LLLB%d:\n",lineno);
+									addtxtbody("	ds");
+									addtxtbody("	mov ecx,[bx]");
+									addtxtbody("	inc edx");
+									addtxtbody("	cmp eax,ecx");
+									fprintf(f2,"	jz LLLB%d\n",lineno);
+									addtxtbody("	mov ax,cs");
+									addtxtbody("	mov ds,ax");
+									addtxtbody("	mov es,ax");
+
+									fprintf(f2,"	mov bx,varnext%d\n",i1+varnextstart);
+									addtxtbody("	cs");
+									addtxtbody("	mov [bx],edx");
+
+
+
+
+
+
+		}
+		return 0;
+}
+
+
+//=================================================================
 
 
 
