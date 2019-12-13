@@ -1,0 +1,21 @@
+declare,sub1
+declare,sub2
+function,sub1
+	const,0,1,2,3,12,27
+	integer,p1,0
+	integer,n,0
+	pointer,p1,n
+	locate,12,0,0
+	echo,seconds since 0h.00
+	while,n,27,sub2,p1,0,0,0
+function,sub2
+	const,0,1,2,3,27,255
+	integer,key,0
+	integer,p2,1132
+	mem.peek,key,p2
+	eval,key,key/18
+	locate,0,0,0
+	printnumber,key	
+	inkey,key
+	bits.and,key,key,255
+	pointer.to,argv0,key
