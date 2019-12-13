@@ -1,0 +1,21 @@
+declare,sub1
+declare,cicle1
+function,sub1
+	const,0,1,2,3,2000,400
+	integer,p1,0
+	integer,n,0
+	integer,i,0
+	pointer,p1,i
+	screen,3
+	timer.count,i
+	eval,i,i/18
+	locate,0,0,0
+	sound,400
+		for,n,0,2000,1,cicle1,i,0,0,0
+	nosound
+function,cicle1
+	const,0,1,2,2000,400
+	timer.cicle,argv0
+	nosound
+	timer.cicle,argv0
+	sound,400
