@@ -1,0 +1,11 @@
+declare,sub1
+function,sub1
+	const,0,1,2
+	integer,i,0
+	;,timer counter
+	timer.count,i
+	;,timer counter
+	locate,0,0,0
+	echo,pc speed:
+	locate,0,1,0
+	printnumber,i
