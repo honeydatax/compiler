@@ -1,0 +1,42 @@
+declare,main
+declare,loop1
+declare,center
+function,main
+	const,0,1,2,3,10,16,100
+	set,a,-
+	set,c,>
+	set,d,<-
+	string,b,100
+	integer,p1,0
+	integer,p2,0
+	integer,p3,0
+	integer,n,0
+	pointer,p1,a
+	pointer,p2,d
+	pointer,p3,c
+	screen,3
+	locate,0,0,0
+	memfill,b,0,100
+	strcat,b,p2
+		for,n,0,16,1,loop1,n,p1,b,p3
+function,loop1
+	const,0,1,2,3,10,16,80
+	integer,size,0
+	integer,i,0
+	string.len,size,argv2
+	eval,size,size+argv2-1
+	mem.poke,size,0
+	strcat,argv2,argv1
+	strcat,argv2,argv3
+	center,argv2,3,80,0
+	eval,i,18*1
+	timer.sleep,i
+function,center
+	const,0,1,2,3,127
+	integer,x,0
+	integer,sizes,0
+	string.len,sizes,argv0
+	eval,x,(argv2/2)-(sizes/2)
+	bits.and,x,x,127
+	locate,x,argv1,0
+	print,argv0
