@@ -1,7 +1,7 @@
 declare,main
 declare,loop1
 function,main
-	const,0,1,2,3,10,16,100
+	const,0,1,2,3,10,16,1000
 	set,a,hello world
 	string,b,100
 	integer,p1,0
@@ -11,7 +11,7 @@ function,main
 	eval,p2,b
 	screen,3
 	locate,0,0,0
-	memfill,b,100,0
+	memfill,b,0,1000
 	for,n,0,16,1,loop1,n,p1,p2,0
 function,loop1
 	const,0,1,2,3,10,16
