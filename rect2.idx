@@ -1,0 +1,44 @@
+declare,main
+declare,rects
+declare,rectss
+function,main
+	const,0,1,2,3,5,15,256,10,20,100,200
+	integer,i,0
+	integer,n,0
+	integer,m,0
+	screen,256
+	back,0
+	color,15
+	for,n,10,200,20,rectss,n,0,0,0
+	doevents
+	eval,i,18*5
+	timer.sleep,i
+	screen,3
+function,rects
+	const,0,1,2,3,15,18,19
+	integer,w,0
+	integer,h,0
+	integer,w2,15
+	integer,h2,15
+	integer,w3,15
+	integer,h3,15
+	integer,w4,15
+	eval,w,argv0+argv2
+	eval,h,argv1+argv3
+	eval,h2,argv1+15
+	eval,w2,argv0+15
+	eval,h3,argv1+7
+	eval,w3,w-7
+	eval,w4,w-15
+	box,argv0,argv1,w,h,15
+	box,argv0,argv1,w,h2,19
+	vline,w3,argv1,h2,15
+	hline,w4,h3,w,15
+	hline,argv0,argv1,w,0
+	hline,argv0,h,w,0
+	vline,argv0,argv1,h,0
+	vline,w,argv1,h,0
+function,rectss
+	integer,w,100
+	integer,h,100
+	rects,argv0,argv0,w,h
