@@ -1,0 +1,25 @@
+declare,main
+declare,center
+function,main
+	const,0,1,2,3,4,5,80,8
+	set,a,hello world.
+	set,b,hi there.
+	set,c,hi.
+	integer,p1,0
+	pointer,p1,a
+	screen,3
+	center,p1,3,80,0
+	pointer,p1,b
+	center,p1,5,80,0
+	pointer,p1,c
+	center,p1,8,80,0
+function,center
+	const,0,1,2,3,127
+	integer,x,0
+	integer,sizes,0
+	string.len,sizes,argv0
+	eval,x,(argv2/2)-(sizes/2)
+	bits.and,x,x,127
+	locate,x,argv1,0
+	print,argv0
+
