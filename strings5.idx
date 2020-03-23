@@ -1,0 +1,25 @@
+declare,main
+declare,loop1
+function,main
+	const,0,1,2,3,10,16,100
+	set,a,-
+	set,c,>
+	string,b,100
+	integer,p1,0
+	integer,p2,0
+	integer,p3,0
+	integer,n,0
+	pointer,p1,a
+	pointer,p3,c
+	eval,p2,b
+	screen,3
+	locate,0,0,0
+	memfill,b,0,100
+		for,n,0,16,1,loop1,n,p1,p2,p3
+function,loop1
+	const,0,1,2,3,10,16
+	locate,0,argv0,0
+	strcat,argv2,argv1
+	print,argv2
+	locate,argv0,argv0,0
+	print,argv3
