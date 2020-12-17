@@ -11,3 +11,9 @@ A preprocessor po index a more easy compiler
 Ever made
 
 Index <hello.idx
+
+Irc channel #index
+
+https://webchat.freenode.net
+
+
