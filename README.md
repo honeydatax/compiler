@@ -12,8 +12,8 @@ Ever made
 
 Index <hello.idx
 
-Irc channel #index
 
-https://webchat.freenode.net
+
+
 
 
